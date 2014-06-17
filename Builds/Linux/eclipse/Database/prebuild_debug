@@ -1,0 +1,6 @@
+pwd
+g++ -D GCC_BUILD -D _DEBUG -D _LIB -I"../../../../../Library/Boost" \
+-I"../../../../../Library/Runtime" \
+-I"../../../../../Library/Utility" \
+-I"../../../../../Library/Otl" \
+../src/DatabasePCH.h

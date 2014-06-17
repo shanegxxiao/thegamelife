@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="TestMain">
+      <UniqueIdentifier>{b25e7540-66fe-46b1-adf2-f65b1bc9ac04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RingBufferTest">
+      <UniqueIdentifier>{acb2043f-a56b-4df1-9c7e-1f07e688e941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DatabaseTest">
+      <UniqueIdentifier>{204b5082-62a6-417a-bfa7-8a8dd15809ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LogTest">
+      <UniqueIdentifier>{330e85e9-e051-4875-8974-ff0221052034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RuntimeTest">
+      <UniqueIdentifier>{eebc5706-664e-4bb3-985d-b0aa6c25cdec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpensslTest">
+      <UniqueIdentifier>{f8b3bda0-08d1-43f3-9c98-9fc4ff244e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DownloadTest">
+      <UniqueIdentifier>{bb5cf3cf-717c-4777-8332-a09c1d0466b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ExtraSendBufferPoolTest">
+      <UniqueIdentifier>{4f4ace5b-3a63-4ef3-ac29-b971dc1af02d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HttpTest">
+      <UniqueIdentifier>{d0a8e3a6-6c63-4d4a-abcf-3513a33b5b08}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Common\Revision\revision.cpp">
+      <Filter>TestMain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\TestMain\TestMain.cpp">
+      <Filter>TestMain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\TestMain\UnitTestPCH.cpp">
+      <Filter>TestMain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\RingBufferTest\RingBufferTest.cpp">
+      <Filter>RingBufferTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\DatabaseTest\DatabaseTest.cpp">
+      <Filter>DatabaseTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\LogTest\LogTest.cpp">
+      <Filter>LogTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\RuntimeTest\Service2.cpp">
+      <Filter>RuntimeTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\RuntimeTest\Service0.cpp">
+      <Filter>RuntimeTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\RuntimeTest\Service1.cpp">
+      <Filter>RuntimeTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\RuntimeTest\RuntimeTest.cpp">
+      <Filter>RuntimeTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\OpensslTest\OpensslTest.cpp">
+      <Filter>OpensslTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\DownloadTest\DownloadTest.cpp">
+      <Filter>DownloadTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\ExtraSendBufferPoolTest\ExtraSendBufferPoolTest.cpp">
+      <Filter>ExtraSendBufferPoolTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\HttpTest\HttpTest.cpp">
+      <Filter>HttpTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\UnitTest\HttpTest\HttpsTest.cpp">
+      <Filter>HttpTest</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\TestMain\targetver.h">
+      <Filter>TestMain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\TestMain\TestMain.h">
+      <Filter>TestMain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\TestMain\UnitTestPCH.h">
+      <Filter>TestMain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\RuntimeTest\Service1.h">
+      <Filter>RuntimeTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\RuntimeTest\Service2.h">
+      <Filter>RuntimeTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\RuntimeTest\Service0.h">
+      <Filter>RuntimeTest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\UnitTest\HttpTest\BoostHttpClient.h">
+      <Filter>HttpTest</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Source\Common\Revision\revision.tmpl">
+      <Filter>TestMain</Filter>
+    </None>
+  </ItemGroup>
+</Project>

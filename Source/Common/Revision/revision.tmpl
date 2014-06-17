@@ -1,0 +1,16 @@
+// Test file for SubWCRev: testfile.tmpl
+
+#ifndef __revision_h__
+#define __revision_h__
+
+#define REVISION $WCREV$
+char *g_szRevision = "$WCREV$";
+char *g_szModified = "$WCMODS?Modified:Not modified$";
+char *g_szDate     = "$WCNOW$";
+char *g_szRange    = "$WCRANGE$";
+char *g_szMixed    = "$WCMIXED?Mixed revision WC:Not mixed$";
+char *g_szURL      = "$WCURL$";
+
+#endif //__revision_h__
+// End of file
+

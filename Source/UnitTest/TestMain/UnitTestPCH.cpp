@@ -1,0 +1,3 @@
+#include "UnitTestPCH.h"
+
+//DECLARE_RUNTIME_EXPORTED_MEMBER

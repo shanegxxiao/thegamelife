@@ -1,0 +1,17 @@
+if [ ! -d ../../../../Library/Utility ]
+then 
+mkdir ../../../../Library/Utility
+fi
+
+if [ ! -d ../../../../Library/Utility/Lib ]
+then 
+mkdir ../../../../Library/Utility/Lib
+fi
+
+if [ ! -d ../../../../Library/Utility/Utility ]
+then 
+mkdir ../../../../Library/Utility/Utility
+fi
+
+cp ./Release/libUtility.a ../../../../Library/Utility/Lib/libUtility.a
+cp ./src/*.h ../../../../Library/Utility/Utility/

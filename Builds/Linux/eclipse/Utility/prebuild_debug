@@ -1,0 +1,5 @@
+pwd
+g++ -D GCC_BUILD -D _DEBUG -D _LIB \
+-I"../../../../../Library/Boost" \
+-I"../../../../../Library/OpenSSL" \
+../src/UtilityPCH.h

@@ -1,0 +1,31 @@
+if [ ! -d Utility ]
+then 
+mkdir Utility
+ln -s ./../../../../Source/Common/Utility/ ./Utility/src
+fi
+
+if [ ! -d Runtime ]
+then
+mkdir Runtime
+ln -s ./../../../../Source/Common/Runtime/ ./Runtime/src
+fi
+
+if [ ! -d Network ]
+then
+mkdir Network
+ln -s ./../../../../Source/Common/Network/ ./Network/src
+fi
+
+if [ ! -d Database ]
+then
+mkdir Database
+ln -s ./../../../../Source/Common/Database/ ./Database/src
+fi
+
+
+if [ ! -d UnitTest ]
+then
+mkdir UnitTest
+fi
+ln -s ./../../../../Source/UnitTest/ ./UnitTest/src
+

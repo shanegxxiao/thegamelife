@@ -1,0 +1,5 @@
+pwd
+g++ -D GCC_BUILD -D NDEBUG -D _LIB -I"../../../../../Library/Boost" \
+-I"../../../../../Library/OpenSSL" \
+-I"../../../../../Library/Utility" \
+../src/NetworkPCH.h
