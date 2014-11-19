@@ -1,7 +1,6 @@
 #ifndef __ObjectSystem_h__
 #define __ObjectSystem_h__
 
-#include "RefObject.h"
 #include "RuntimeDefine.h"
 
 namespace Runtime
@@ -9,7 +8,7 @@ namespace Runtime
 	class Object;
 	class ObjectCreator;
 
-	class ObjectSystem : public RefObject
+	class ObjectSystem
 	{
 	public:
 		static ObjectSystem* GetInstancePtr();
@@ -25,16 +24,16 @@ namespace Runtime
 		Object *CreateEntityObject(unsigned int uiClassID);
 
 		//Runtime Message System
-		unsigned int SubscribeXGRTMsg(unsigned int uiMessage, 
+		unsigned int SubscribeRTMsg(unsigned int uiMessage, 
 			unsigned int uiPriority, Object* pkObject, MsgFunc pFunc);
-		unsigned int UnsubscribeXGRTMsg(unsigned int uiMessage, 
+		unsigned int UnsubscribeRTMsg(unsigned int uiMessage, 
 			Object* pkObject, MsgFunc pFunc);
-		unsigned int SubscribeXGRTMsg(unsigned int uiMessage, 
+		unsigned int SubscribeRTMsg(unsigned int uiMessage, 
 			unsigned int uiPriority, WndowRef *pkReceiver);
-		unsigned int UnsubscribeXGRTMsg(unsigned int uiMessage, 
+		unsigned int UnsubscribeRTMsg(unsigned int uiMessage, 
 			WndowRef *pkReceiver);
-		void SendXGRTMsg(RTMsg &kMsg);
-		void SendXGRTMsg(unsigned int uiMessage, WPARAM wParam = 0, LPARAM lParam = 0);
+		void SendRTMsg(RTMsg &kMsg);
+		void SendRTMsg(unsigned int uiMessage, WPARAM wParam = 0, LPARAM lParam = 0);
 
 		void EnableAutoRunning(Object *pkObject, RTPriority ePriority);
 		void Running();
@@ -98,14 +97,14 @@ namespace Runtime
 			PriorityObjectMap::value_type(ePriority, pkObject));
 	}
 
-	inline void ObjectSystem::SendXGRTMsg(unsigned int uiMessage,
+	inline void ObjectSystem::SendRTMsg(unsigned int uiMessage,
 		WPARAM wParam, LPARAM lParam)
 	{
 		RTMsg kMsg;
 		kMsg.uiMessage = uiMessage;
 		kMsg.wParam = wParam;
 		kMsg.lParam = lParam;
-		SendXGRTMsg(kMsg);
+		SendRTMsg(kMsg);
 	}
 
 	inline ObjectCreator* ObjectSystem::GetServiceCreator(std::string &strName)

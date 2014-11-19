@@ -2,30 +2,29 @@
 #define __Object_h__
 
 #include "RuntimeDefine.h"
-#include "RefObject.h"
 #include "ParamList.h"
 #include "ObjectSystem.h"
 
 namespace Runtime
 {
-	class Object : public RefObject
+	class Object
 	{
 	public:
 		enum ObjectType
 		{
-			OT_OBJECT,
-			OT_SERVICE,
-			OT_ENTITY,
-			OT_COUNT
+			OT_OBJECT,///< base type, not be recognized
+			OT_SERVICE,///< singleton, will be auto initialized and shutdown
+			OT_ENTITY,///< can be instantiated multi times, will not be auto initialized and shutdown
+			OT_COUNT///< type count
 		};
 
 	public:
 		Object(void);
 		virtual ~Object(void);
 		void EnableAutoRunning(RTPriority ePriority);
-		unsigned int SubscribeXGRTMsg(unsigned int uiMessage, 
+		unsigned int SubscribeRTMsg(unsigned int uiMessage, 
 			unsigned int uiPriority, MsgFunc pFunc);
-		unsigned int UnsubscribeXGRTMsg(unsigned int uiMessage, 
+		unsigned int UnsubscribeRTMsg(unsigned int uiMessage, 
 			MsgFunc pFunc);
 
 		virtual bool Initialize(ParamList& kParamList);

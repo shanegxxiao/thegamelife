@@ -35,11 +35,12 @@ namespace Network
 		/// @}
 		DataProcessMethod eDataProcessMethod;///< 数据处理方式，是流还是包的方式
 		int iPacketProcessNumLimit;///< 每帧处理的数据包数量限制，-1为不限制
-		bool bKeepAlive;///< 是否开启socket的keep alive选项
-		/// bKeepAlive为true时以下两个参数才有效
+		
+		/// KeepAlive相关参数，bKeepAlive为true时后续参数才有效
 		///@{
+		bool bKeepAlive;///< 是否开启socket的keep alive选项
 		unsigned long ulKeepAliveTime;///< 距上一次发包多久后开始发送keep alive数据包，单位毫秒
-		unsigned long ulKeepAliveInterval;///< 发送间隔，单位毫秒
+		unsigned long ulKeepAliveInterval;///< keep alive数据包发送间隔，单位毫秒
 		/// @}
 
 

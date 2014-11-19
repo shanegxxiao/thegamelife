@@ -16,34 +16,34 @@ ConCallback::ConCallback(Network::TcpNetwork* pkTcpNetwork)
 void ConCallback::onConFunc(Network::ConnectionID uConID)
 {
 	BOOST_INTERLOCKED_INCREMENT(&muiOnConCnt);
-	//std::cout << "on connected, ID = " << uConID << std::endl;
-	//std::cout << "total connections count = " << muiOnConCnt << std::endl;
+	std::cout << "on connected, ID = " << uConID << std::endl;
+	std::cout << "total connections count = " << muiOnConCnt << std::endl;
 }
 void ConCallback::onDisConFunc(Network::ConnectionID uConID)
 {
 	BOOST_INTERLOCKED_INCREMENT(&muiOnDisConCnt);
-	//std::cout << "on disconnected, ID = " << uConID << std::endl;
-	//std::cout << "total connections count = " << muiOnConCnt << std::endl;
+	std::cout << "on disconnected, ID = " << uConID << std::endl;
+	std::cout << "total connections count = " << muiOnConCnt << std::endl;
 }
 void ConCallback::onRecvFunc(Network::ConnectionID uConID, 
 	const unsigned char* acData, unsigned int uSize)
 {
 	BOOST_INTERLOCKED_EXCHANGE_ADD(&muiOnRecvDataSize, uSize);
-	//char *pBuff = new char[uSize + 1];
-	//memcpy_s(pBuff, uSize + 1, acData, uSize);
-	//pBuff[uSize] = 0;
+	char *pBuff = new char[uSize + 1];
+	memcpy_s(pBuff, uSize + 1, acData, uSize);
+	pBuff[uSize] = 0;
+	checkRecvDataA2Z(pBuff, uSize);
+	delete[] pBuff;
+
 	//std::cout << "on received, ID = " << uConID << "," << 
 	//	uSize << "," << pBuff << std::endl;
 
-	//checkRecvDataA2Z(pBuff, uSize);
-
 #ifdef _DEBUG
-	//std::cout << "received bytes = " << Network::TcpConnection::msRecvCnt << std::endl;
+	std::cout << "received bytes = " << Network::TcpConnection::msRecvCnt << std::endl;
 #endif // _DEBUG
 
-	//delete[] pBuff;
 	//mpkTcpNetwork->asyncCloseConnection(uConID);
-	mpkTcpNetwork->closeConnection(uConID);
+	//mpkTcpNetwork->closeConnection(uConID);
 }
 bool ConCallback::onPacketFunc(Network::ConnectionID uConID, const unsigned char* acData, unsigned int uSize)
 {
@@ -51,10 +51,10 @@ bool ConCallback::onPacketFunc(Network::ConnectionID uConID, const unsigned char
 	TestCommonDefine::Packet kPacket;
 	memcpy_s(&kPacket, sizeof(TestCommonDefine::Packet) - 4, acData, uSize);
 	kPacket.acBuff[uSize - 4] = '\0';
+	checkRecvDataA2Z(kPacket.acBuff, uSize - 4);
+
 	//std::cout << "on received, ID = " << uConID << "," << 
 	//	uSize << "," << kPacket.acBuff << std::endl;
-
-	checkRecvDataA2Z(kPacket.acBuff, uSize - 4);
 
 #ifdef _DEBUG
 	//std::cout << "received bytes = " << Network::TcpConnection::msRecvCnt << std::endl;

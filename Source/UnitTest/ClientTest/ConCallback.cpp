@@ -16,12 +16,12 @@ ConCallback::ConCallback()
 void ConCallback::onConFunc(Network::ConnectionID uConID)
 {
 	BOOST_INTERLOCKED_INCREMENT(&muiOnConCnt);
-	//std::cout << "on connected, ID = " << uConID << std::endl;
+	std::cout << "on connected, ID = " << uConID << std::endl;
 }
 void ConCallback::onDisConFunc(Network::ConnectionID uConID)
 {
 	BOOST_INTERLOCKED_INCREMENT(&muiOnDisConCnt);
-	//std::cout << "on disconnected, ID = " << uConID << std::endl;
+	std::cout << "on disconnected, ID = " << uConID << std::endl;
 }
 void ConCallback::onRecvFunc(Network::ConnectionID uConID, 
 	const unsigned char* acData, unsigned int uSize)
@@ -56,7 +56,7 @@ void ConCallback::onSentFunc(Network::ConnectionID uConID,
 	unsigned int uSize)
 {
 	BOOST_INTERLOCKED_EXCHANGE_ADD(&muiOnSendDataSize, uSize);
-	//std::cout << "on sent, ID = " << uConID << "," << uSize << std::endl;
+	std::cout << "on sent, ID = " << uConID << "," << uSize << std::endl;
 }
 void ConCallback::errorHandleFunc(Network::ConnectionID uConID, 
 	const boost::system::error_code& kErrorCode)

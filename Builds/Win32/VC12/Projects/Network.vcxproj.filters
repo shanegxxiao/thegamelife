@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{eb26b059-9bf3-4939-ab30-d5b897ab9c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HttpNetwork">
+      <UniqueIdentifier>{ac2339a8-0ac5-4a8c-96f9-1d0513ba4b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TcpNetwork">
+      <UniqueIdentifier>{49b64ffd-9fe0-4eeb-bd4f-22cc057301b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DownloadMgr">
+      <UniqueIdentifier>{e033194e-b0ff-472a-aff6-77017a6b91db}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\targetver.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\NetworkPCH.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\Network.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\ActiveConnectionContainer.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\Connection.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\ConnectionIDGenerator.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\ExtraSendBufferPool.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\IdealConnectionContainer.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\RingBuffer.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\SSLConnection.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\TcpConnection.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\TcpNetwork.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpRespone.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpDownloadTask.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpNetwork.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpRequest.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\DownloadMgr.h">
+      <Filter>DownloadMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\DownloadTask.h">
+      <Filter>DownloadMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpClientConnection.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpServerConnection.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpConnection.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpNetworkParams.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpNetworkErrorCode.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\TcpNetworkParams.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\TcpNetworkErrorCode.h">
+      <Filter>TcpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\NetworkCommonDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpsClientConnection.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Network\HttpsServerConnection.h">
+      <Filter>HttpNetwork</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\NetworkPCH.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\ActiveConnectionContainer.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\Connection.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\ConnectionIDGenerator.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\IdealConnectionContainer.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\SSLConnection.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\TcpConnection.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\TcpNetwork.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpRespone.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpDownloadTask.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpNetwork.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpRequest.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\DownloadMgr.cpp">
+      <Filter>DownloadMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\DownloadTask.cpp">
+      <Filter>DownloadMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpClientConnection.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpServerConnection.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpConnection.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpNetworkParams.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpNetworkErrorCode.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\TcpNetworkParams.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\TcpNetworkErrorCode.cpp">
+      <Filter>TcpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\NetworkCommonDefine.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpsServerConnection.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Network\HttpsClientConnection.cpp">
+      <Filter>HttpNetwork</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

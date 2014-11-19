@@ -74,7 +74,7 @@ namespace Runtime
 				InsertIntoSortedServiceList(eMode, kServiceList, dependency->mpCreator);
 		}
 
-		printf("ModuleManager::_insertModuleIntoList - Cycle in 'after' %s dependency chain of '%s'",
+		printf("ModuleManager::_insertModuleIntoList - Cycle in 'after' %s dependency chain of '%s'\n",
 			eMode == DM_Init ? "init" : "shutdown",
 			pkCreator->GetClassNameString().c_str());
 		assert((GetIndexOfServiceInSortedList(kServiceList, pkCreator) == -1));
@@ -86,7 +86,7 @@ namespace Runtime
 			const bool thisBeforeCurrent  = pkCreator->ConstrainedToComeBefore(kServiceList[i], eMode);
 			const bool currentAfterThis   = kServiceList[i]->ConstrainedToComeAfter(pkCreator, eMode);
 
-			printf("ModuleManager::_insertModuleIntoList - Ambiguous %s placement of module '%s' relative to '%s'",
+			printf("ModuleManager::_insertModuleIntoList - Ambiguous %s placement of module '%s' relative to '%s'\n",
 				eMode == DM_Init ? "init" : "shutdown",
 				pkCreator->GetClassNameString().c_str(),
 				kServiceList[i]->GetClassNameString().c_str());
@@ -118,7 +118,7 @@ namespace Runtime
 			/// module is ambiguous.
 			for(unsigned int n = i + 1; n < numModules; ++ n)
 			{
-				printf("ModuleManager::_insertModuleIntoList - Ambiguous %s constraint on module '%s' to come before '%s' yet after '%s'",
+				printf("ModuleManager::_insertModuleIntoList - Ambiguous %s constraint on module '%s' to come before '%s' yet after '%s'\n",
 					eMode == DM_Init ? "init" : "shutdown",
 					pkCreator->GetClassNameString().c_str(),
 					kServiceList[i]->GetClassNameString().c_str(),
@@ -401,14 +401,14 @@ namespace Runtime
 		return true;
 	}
 
-	unsigned int ObjectSystem::SubscribeXGRTMsg(unsigned int uiMessage, unsigned int uiPriority,
+	unsigned int ObjectSystem::SubscribeRTMsg(unsigned int uiMessage, unsigned int uiPriority,
 		Object* pkObject, MsgFunc pFunc)
 	{
 		m_kMsgToHandlersMap[uiMessage].insert(PriorityHandlerMap::value_type(uiPriority, MsgHandler(pkObject, pFunc)));
 		return m_kMsgToHandlersMap[uiMessage].size();
 	}
 
-	unsigned int ObjectSystem::UnsubscribeXGRTMsg(unsigned int uiMessage,
+	unsigned int ObjectSystem::UnsubscribeRTMsg(unsigned int uiMessage,
 		Object* pkObject, MsgFunc pFunc)
 	{
 		PriorityHandlerMap::iterator kIter = m_kMsgToHandlersMap[uiMessage].begin();
@@ -425,14 +425,14 @@ namespace Runtime
 		return 0;
 	}
 
-	unsigned int ObjectSystem::SubscribeXGRTMsg(unsigned int uiMessage, unsigned int uiPriority,
+	unsigned int ObjectSystem::SubscribeRTMsg(unsigned int uiMessage, unsigned int uiPriority,
 		WndowRef *pkReceiver)
 	{
 		m_kMsgToWindowRefsMap[uiMessage].insert(PriorityWindowRefMap::value_type(uiPriority, pkReceiver));
 		return m_kMsgToWindowRefsMap[uiMessage].size();
 	}
 
-	unsigned int ObjectSystem::UnsubscribeXGRTMsg(unsigned int uiMessage, WndowRef *pkReceiver)
+	unsigned int ObjectSystem::UnsubscribeRTMsg(unsigned int uiMessage, WndowRef *pkReceiver)
 	{
 		PriorityWindowRefMap::iterator kIter = m_kMsgToWindowRefsMap[uiMessage].begin();
 		while (kIter != m_kMsgToWindowRefsMap[uiMessage].end())
@@ -447,7 +447,7 @@ namespace Runtime
 		return 0;
 	}
 
-	void ObjectSystem::SendXGRTMsg(RTMsg &kMsg)
+	void ObjectSystem::SendRTMsg(RTMsg &kMsg)
 	{
 		PriorityHandlerMap::iterator kIterHandler = m_kMsgToHandlersMap[kMsg.uiMessage].end();
 		while (kIterHandler != m_kMsgToHandlersMap[kMsg.uiMessage].begin())

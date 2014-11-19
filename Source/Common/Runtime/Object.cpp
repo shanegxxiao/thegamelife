@@ -38,14 +38,14 @@ namespace Runtime
 
 	}
 
-	unsigned int Object::SubscribeXGRTMsg(unsigned int uiMessage, 
+	unsigned int Object::SubscribeRTMsg(unsigned int uiMessage, 
 		unsigned int uiPriority, MsgFunc pFunc)
 	{
-		return ms_pkObjectSystem->SubscribeXGRTMsg(uiMessage, uiPriority, this, pFunc);
+		return ms_pkObjectSystem->SubscribeRTMsg(uiMessage, uiPriority, this, pFunc);
 	}
 
-	unsigned int Object::UnsubscribeXGRTMsg(unsigned int uiMessage, MsgFunc pFunc)
+	unsigned int Object::UnsubscribeRTMsg(unsigned int uiMessage, MsgFunc pFunc)
 	{
-		return ms_pkObjectSystem->UnsubscribeXGRTMsg(uiMessage, this, pFunc);
+		return ms_pkObjectSystem->UnsubscribeRTMsg(uiMessage, this, pFunc);
 	}
 }

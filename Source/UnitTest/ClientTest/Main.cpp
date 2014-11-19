@@ -49,10 +49,10 @@ void sendMsgOnceFunc()
 	while (g_bKeepRunningFlag)
 	{
 		//boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
-		Network::ConnectionID uID = kTcpNetwork.connect("127.0.0.1", 7890);
+		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		while (uID == INVALID_CONNECTION_ID)
 		{
-			uID = kTcpNetwork.connect("127.0.0.1", 7890);
+			uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		}
 		if (uID != INVALID_CONNECTION_ID)
 		{
@@ -61,6 +61,8 @@ void sendMsgOnceFunc()
 			kTcpNetwork.send(uID, (unsigned char*)acBuff, strlen(acBuff));
 		}
 		kTcpNetwork.closeConnection(uID);
+
+		kTcpNetwork.running();
 	}
 }
 void sendMsgRepeatFunc()
@@ -72,10 +74,10 @@ void sendMsgRepeatFunc()
 		{
 			break;
 		}
-		Network::ConnectionID uID = kTcpNetwork.connect("127.0.0.1", 7890);
+		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		while (uID == INVALID_CONNECTION_ID)
 		{
-			uID = kTcpNetwork.connect("127.0.0.1", 7890);
+			uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		}
 		kConnectionIDVec.push_back(uID);
 	}
@@ -112,6 +114,58 @@ void sendMsgRepeatFunc()
 		}
 			
 		delete[] pBuff;
+
+		kTcpNetwork.running();
+	}
+}
+void sendPacketOnceFunc()
+{
+	Utility::FrameRate kFrameRate;
+	char cChar = 'a';
+	boost::uniform_int<> kDistribution(1, 8192);
+	boost::mt19937 kEngine;
+	boost::variate_generator<boost::mt19937, boost::uniform_int<> > kRandom(kEngine, kDistribution);
+
+	while (g_bKeepRunningFlag)
+	{
+		//boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
+		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
+		while (uID == INVALID_CONNECTION_ID)
+		{
+			uID = kTcpNetwork.connect("192.168.1.201", 7890);
+		}
+		if (uID != INVALID_CONNECTION_ID)
+		{
+			std::cout << "sendPacketOnceFunc connected, ID = " << uID << std::endl;
+			TestCommonDefine::Packet kPacket;
+			unsigned int uiSize = kRandom();
+			for (unsigned int ui = 0; ui < uiSize; ++ui)
+			{
+				kPacket.acBuff[ui] = cChar;
+				if (cChar == 'z')
+				{
+					cChar = 'a';
+				}
+				else
+				{
+					++cChar;
+				}
+			}
+			kPacket.uiPacketSize = uiSize + 4;
+			if (kTcpNetwork.send(uID, (unsigned char*)(&kPacket), kPacket.uiPacketSize))
+			{
+				std::cout << uID << " send successful, packet size " << kPacket.uiPacketSize << std::endl;
+				kFrameRate.stat();
+				kFrameRate.showOnWindowTitle(1e3);
+			}
+			else
+			{
+				std::cout << uID << " send failed, packet size " << kPacket.uiPacketSize << std::endl;
+			}
+		}
+		kTcpNetwork.asyncCloseConnection(uID);
+
+		kTcpNetwork.running();
 	}
 }
 void sendPacketRepeatFunc()
@@ -119,7 +173,7 @@ void sendPacketRepeatFunc()
 	Utility::FrameRate kFrameRate;
 
 	std::vector<Network::ConnectionID> kConnectionIDVec;
-	for (unsigned int ui = 0; ui < 5; ++ui)
+	for (unsigned int ui = 0; ui < 100; ++ui)
 	{
 		if (!g_bKeepRunningFlag)
 		{
@@ -128,10 +182,10 @@ void sendPacketRepeatFunc()
 
 		//boost::this_thread::sleep(boost::posix_time::milliseconds(50));
 
-		Network::ConnectionID uID = kTcpNetwork.connect("127.0.0.1", 7890);
+		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		while (uID == INVALID_CONNECTION_ID)
 		{
-			uID = kTcpNetwork.connect("127.0.0.1", 7890);
+			uID = kTcpNetwork.connect("192.168.1.201", 7890);
 			if (!g_bKeepRunningFlag)
 			{
 				return;
@@ -196,6 +250,7 @@ void sendPacketRepeatFunc()
 				std::cout << kConnectionIDVec[ui] << " send failed " << uiTotalPacketCnt << std::endl;
 			}
 		}
+		kTcpNetwork.running();
 	}
 }
 
@@ -244,95 +299,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	if (kTcpNetwork.startup(kParams))
 	{
 		/// Test 0
-		/// 开启这个测试会导致两个线程同时访问一个Connection
 		/// @{
-
-		//for (int i = 0; i < 10; ++i)
-		//{
-		//	kThreadGroup.create_thread(boost::bind(&sendMsgOnceFunc));
-		//}
-
-		//for (int i = 0; i < 10; ++i)
-		//{
-		//	kThreadGroup.create_thread(boost::bind(&sendMsgRepeatFunc));
-		//}
-
+		//sendMsgOnceFunc();
 		/// @}
 
 		/// Test 1
 		/// @{
-		/// sendMsgRepeatFunc();
+		sendMsgRepeatFunc();
 		/// @}
 			
 		/// Test 2
 		/// @{
-		while (g_bKeepRunningFlag)
-		{
-			Network::ConnectionID uID = kTcpNetwork.connect("127.0.0.1", 7890);
-			while (uID == INVALID_CONNECTION_ID && g_bKeepRunningFlag)
-			{
-				uID = kTcpNetwork.connect("127.0.0.1", 7890);
-			}
-			if (uID != INVALID_CONNECTION_ID)
-			{
-				std::cout << "sendMsgOnceFunc connected, ID = " << uID << std::endl;
-				char acBuff[] = "sendMsgOnceFunc hello world.\n";
-				kTcpNetwork.send(uID, (unsigned char*)acBuff, strlen(acBuff));
-			}
-			kTcpNetwork.asyncCloseConnection(uID);
-
-			kFrameRate.stat();
-			kFrameRate.showOnWindowTitle(1e3);
-			kTcpNetwork.running();
-		}
+		//sendPacketOnceFunc();
 		/// @}
 
 		/// Test3
 		/// @{
 		//sendPacketRepeatFunc();
-		/// @}
-
-		/// Test4
-		/// @{
-		//TestCommonDefine::Packet kPacket;
-		//kPacket.uiPacketSize = 40 * 1024;
-		//std::vector<Network::ConnectionID> kConnectionIDVec;
-		//unsigned int uiConCount = 5;
-		//for (unsigned int ui = 0; ui < uiConCount; ++ui)
-		//{
-		//	if (!g_bKeepRunningFlag)
-		//	{
-		//		break;
-		//	}
-		//	//boost::this_thread::sleep(boost::posix_time::milliseconds(50));
-		//	Network::ConnectionID uID = kTcpNetwork.connect(pcAddress, 7890);
-		//	while (uID == INVALID_CONNECTION_ID)
-		//	{
-		//		kTcpNetwork.running();
-		//		uID = kTcpNetwork.connect(pcAddress, 7890);
-		//	}
-		//	kConnectionIDVec.push_back(uID);
-		//}
-		//unsigned int uiLastTick = unsigned int(kTimer.elapsed().wall * 1e-6f);
-
-		//while (g_bKeepRunningFlag)
-		//{
-		//	unsigned int uiCurrentTick = kWinTimer.getElapsedMs();
-		//	if (uiCurrentTick - uiLastTick > 5)
-		//	{
-		//		uiLastTick = uiCurrentTick;
-
-		//		for (unsigned int ui = 0; ui < uiConCount; ++ui)
-		//		{
-		//			kTcpNetwork.send(kConnectionIDVec[ui], (unsigned char*)(&kPacket), kPacket.uiPacketSize + 4);
-		//		}
-
-		//		kFrameRate.stat();
-		//		kFrameRate.showOnWindowTitle(1e3);
-		//		kTcpNetwork.running();
-		//	}
-		//}
-
 		/// @}
 
 		kThreadGroup.join_all();

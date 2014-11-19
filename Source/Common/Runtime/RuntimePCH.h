@@ -21,22 +21,6 @@
 #include <boost/locale.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#ifdef WIN32
-
-#include <boost/detail/interlocked.hpp>
-
-#else
-
-#ifndef BOOST_INTERLOCKED_INCREMENT
-#define BOOST_INTERLOCKED_INCREMENT(longPtr) (++(*longPtr))
-#endif
-
-#ifndef BOOST_INTERLOCKED_DECREMENT
-#define BOOST_INTERLOCKED_DECREMENT(longPtr) (--(*longPtr))
-#endif
-
-#endif //WIN32
-
 #include "Utility/Utility.h"
 #include "DynCreate.h"
 
