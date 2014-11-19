@@ -28,11 +28,6 @@ namespace Runtime
 		return true;
 	}
 
-	Object::ObjectType Object::GetType()
-	{
-		return OT_OBJECT;
-	}
-
 	void Object::Running()
 	{
 

@@ -30,7 +30,6 @@ namespace Runtime
 		virtual bool Initialize(ParamList& kParamList);
 		virtual void Running();
 		virtual bool Shutdown();
-		virtual ObjectType GetType();
 		
 	public:
 		static std::string GetWorkDir();

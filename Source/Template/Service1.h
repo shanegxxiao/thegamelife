@@ -12,15 +12,9 @@ public:
 	virtual bool Initialize(Runtime::ParamList& kParamList);
 	virtual void Running();
 	virtual bool Shutdown();
-	virtual Runtime::Object::ObjectType GetType();
 
 private:
 	std::vector<std::string>* mpkShutVector;
 };
-
-inline Runtime::Object::ObjectType Service1::GetType()
-{
-	return Runtime::Object::OT_SERVICE;
-}
 
 #endif//__Service1_h__

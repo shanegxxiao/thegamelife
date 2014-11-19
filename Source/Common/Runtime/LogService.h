@@ -14,7 +14,6 @@ namespace Runtime
 		virtual bool Initialize(Runtime::ParamList& kParamList);
 		virtual void Running();
 		virtual bool Shutdown();
-		virtual Runtime::Object::ObjectType GetType();
 
 	private:
 		Runtime::LogFile* mpkLogFile;
@@ -24,12 +23,6 @@ namespace Runtime
 		Runtime::LogToVSOutput* mpkLogToVSOutput;
 		Runtime::LogSystem* mpkLogSystem;
 	};
-
-	inline Runtime::Object::ObjectType LogService::GetType()
-	{
-		return Runtime::Object::OT_SERVICE;
-	}
-
 }
 
 extern Runtime::LogSystem* gspkLogSystem;

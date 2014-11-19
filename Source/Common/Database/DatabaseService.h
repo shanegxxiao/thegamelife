@@ -18,7 +18,6 @@ namespace Database
 		virtual bool Initialize(Runtime::ParamList& kParamList);
 		virtual void Running();
 		virtual bool Shutdown();
-		virtual Runtime::Object::ObjectType GetType();
 
 		Connection* Connect(const std::string& strConStr);
 		bool CloseConnection(Connection* pkConnection);
@@ -26,11 +25,6 @@ namespace Database
 	private:
 		ConnectionList mkConnectionList;
 	};
-
-	inline Runtime::Object::ObjectType DatabaseService::GetType()
-	{
-		return Runtime::Object::OT_SERVICE;
-	}
 }
 
 #endif//__DatabaseMgr_h__

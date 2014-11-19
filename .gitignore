@@ -1,0 +1,14 @@
+/Library/Boost
+/Library/Otl
+/Library/Runtime
+/Library/Utility
+/Library/Vld
+/Library/Database
+/Library/Network
+/Library/OpenSSL
+/Builds/Win32/VC12/IntermediateDir
+/Builds/Win32/VC12/ipch
+/Builds/Win32/VC12/*.suo
+/Builds/Win32/VC12/*.opensdf
+/Builds/Win32/VC12/*.sdf
+/Binary/Template
