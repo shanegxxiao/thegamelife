@@ -12,3 +12,6 @@
 /Builds/Win32/VC12/*.opensdf
 /Builds/Win32/VC12/*.sdf
 /Binary/Template
+/Binary/Tools/UnitTest.exe
+/Binary/Tools/UnitTest.ilk
+/Binary/Tools/UnitTest.pdb

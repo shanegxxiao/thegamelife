@@ -30,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Source\Common\Revision\revision.cpp">
-      <Filter>TestMain</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Source\UnitTest\TestMain\TestMain.cpp">
       <Filter>TestMain</Filter>
     </ClCompile>
@@ -98,10 +95,5 @@
     <ClInclude Include="..\..\..\..\Source\UnitTest\HttpTest\BoostHttpClient.h">
       <Filter>HttpTest</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Source\Common\Revision\revision.tmpl">
-      <Filter>TestMain</Filter>
-    </None>
   </ItemGroup>
 </Project>
