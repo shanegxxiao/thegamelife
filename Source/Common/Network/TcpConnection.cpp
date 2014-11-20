@@ -75,10 +75,7 @@ namespace Network
 		{
 			unsigned int uiErrorCode = kErrorCode.value();
 			std::string strErrorMsg = kErrorCode.message();
-			_asm
-			{
-				int 3;
-			}
+			BOOST_ASSERT(0);
 		}
 #endif // _DEBUG
 		handleClose(kErrorCode);
