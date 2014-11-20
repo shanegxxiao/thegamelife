@@ -1,2 +1,3 @@
-node config/config.js
+cd Config
+node Config.js
 pause
