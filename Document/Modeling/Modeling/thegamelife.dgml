@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="..." Category="Category2" Bounds="145.438337198893,-39.6020849164327,59.64,25.8366666666667" Label="gate_..." UseManualLocation="True" />
+    <Node Id="Client" Category="Category8" Bounds="184.767501831055,107.380002539953,51.0766666666667,25.8366666666666" Label="client" UseManualLocation="True" />
+    <Node Id="Data_..." Category="Category1" Bounds="143.938337605794,-273.62249593099,59.4633333333334,25.8366666666667" Label="data_..." UseManualLocation="True" />
+    <Node Id="Data_1" Category="Category1" Bounds="-17.5587526448567,-275.683744710286,57.8299999999999,25.8366666666667" Label="data_1" UseManualLocation="True" />
+    <Node Id="Data_n" Category="Category1" Bounds="326.401670939128,-273.62249593099,58.1866666666667,25.8366666666667" Label="data_n" UseManualLocation="True" />
+    <Node Id="Game_..." Category="Category5" Bounds="137.984988301595,-157.392912190755,66.4133333333333,25.8366666666667" Label="game_..." UseManualLocation="True" />
+    <Node Id="Game_1" Category="Category5" Bounds="-21.2950124782986,-161.392912190755,64.78,25.8366666666667" Label="game_1" UseManualLocation="True" />
+    <Node Id="Game_n" Category="Category5" Bounds="327.398321634928,-158.392912190755,65.1366666666667,25.8366666666667" Label="game_n" UseManualLocation="True" />
+    <Node Id="Gate" Category="Category2" Bounds="-17.5683333727996,-44.6020844395955,58.0066666666667,25.8366666666667" Label="gate_1" UseManualLocation="True" />
+    <Node Id="GateN" Category="Category2" Bounds="328.078337198893,-41.6020844395956,58.3633333333333,25.8366666666667" Label="gate_n" UseManualLocation="True" />
+    <Node Id="Hello" Category="Category1" Bounds="-118,-275.081666666667,57.83,25.8366666666667" Label="data_0" UseManualLocation="True" />
+    <Node Id="World" Category="Category5" Bounds="-122.999997762044,-161.122499745687,64.78,25.8366666666667" Label="game_0" UseManualLocation="True" />
+    <Node Id="f350499a-e553-47f3-9338-4063227689be1" Category="Category9" Bounds="-109.468305157455,111.607084751129,65.5533333333333,25.8366666666666" Label="account" UseManualLocation="True" />
+    <Node Id="f99730b5-2a50-4c3e-9658-e87cba19d4751" Category="Category2" Bounds="-118.575000039466,-46.9999998029073,58.0066666666667,25.8366666666667" Label="gate_0" UseManualLocation="True" />
+  </Nodes>
+  <Links>
+    <Link Source="Client" Target="..." Bounds="180.426184603915,-5.01085799272658,26.7993116797724,112.390864503143" />
+    <Link Source="Game_..." Target="..." Bounds="171.637655372807,-131.556245524089,2.86414495907295,82.9595195861655" />
+    <Link Source="Game_..." Target="Data_..." Bounds="171.467111021685,-238.787874560089,1.73557490151734,81.3949623693342" />
+    <Link Source="Game_..." Target="Data_1" Bounds="36.0458938828767,-244.49312160906,117.690417883442,87.1002094183049" />
+    <Link Source="Game_..." Target="Data_n" Bounds="191.676040709169,-242.984987812012,135.721957311327,85.592075621257" />
+    <Link Source="Game_..." Target="Gate" Bounds="37.0847419390164,-131.556245524089,115.809416800204,81.7633533373509" />
+    <Link Source="Game_..." Target="GateN" Bounds="191.950574561539,-131.556245524089,136.909271349991,85.1990011216983" />
+    <Link Source="Game_..." Target="Hello" Bounds="-53.3558878587115,-246.007772455452,195.97777264025,88.6148602646969" />
+    <Link Source="Game_..." Target="f99730b5-2a50-4c3e-9658-e87cba19d4751" Bounds="-53.0683628148282,-131.569133454207,193.775571559998,82.033967123535" />
+    <Link Source="Game_1" Target="..." Bounds="28.5077728727942,-135.556245524089,122.109738822879,90.5917592970052" />
+    <Link Source="Game_1" Target="Data_..." Bounds="29.80840327935,-242.672871449155,117.74159543515,81.2799592583996" />
+    <Link Source="Game_1" Target="Data_1" Bounds="11.1245231508972,-240.847101556822,0.181621510988426,79.4541893660667" />
+    <Link Source="Game_1" Target="Data_n" Bounds="43.4211168758436,-248.435015911261,274.42343812093,89.4263277401269" />
+    <Link Source="Game_1" Target="Gate" Bounds="11.1326019321711,-135.556245524089,0.238588163356646,81.9541982694522" />
+    <Link Source="Game_1" Target="GateN" Bounds="43.2331737129995,-137.353122081235,276.345315431905,95.6296364399068" />
+    <Link Source="Game_1" Target="Hello" Bounds="-71.7515202957898,-242.492520516644,71.4631665917772,81.0996083258883" />
+    <Link Source="Game_1" Target="f99730b5-2a50-4c3e-9658-e87cba19d4751" Bounds="-72.2577494253308,-135.556245524089,71.9845085075389,81.7998498352706" />
+    <Link Source="Game_n" Target="..." Bounds="202.91478381001,-132.556245524089,136.965104693433,88.0858987713911" />
+    <Link Source="Game_n" Target="Data_..." Bounds="202.209794829716,-243.051516834967,136.87123135033,84.6586046442122" />
+    <Link Source="Game_n" Target="Data_1" Bounds="48.8013810575148,-250.166903551479,278.762759109119,93.7904185851861" />
+    <Link Source="Game_n" Target="Data_n" Bounds="356.345314221765,-238.792598351264,3.12002613297875,80.3996861605087" />
+    <Link Source="Game_n" Target="Gate" Bounds="48.9938936494506,-134.867615763656,278.484532601556,90.9213975682374" />
+    <Link Source="Game_n" Target="GateN" Bounds="357.767909692956,-132.556245524089,1.89936028219489,81.9565770164406" />
+    <Link Source="Game_n" Target="Hello" Bounds="-51.4592910513709,-252.386065381396,378.857612686299,98.448410813847" />
+    <Link Source="Game_n" Target="f99730b5-2a50-4c3e-9658-e87cba19d4751" Bounds="-51.8325334824155,-137.404340289381,379.230855117344,93.9711419014148" />
+    <Link Source="World" Target="..." Bounds="-62.3466349590646,-135.285829264323,201.561495451373,92.1276898700644" />
+    <Link Source="World" Target="Data_..." Bounds="-60.4803692064472,-244.973478779875,197.196549512924,83.9435879004205" />
+    <Link Source="World" Target="Data_1" Bounds="-79.1119243520457,-243.124301013576,72.986428189264,82.0018050825865" />
+    <Link Source="World" Target="Data_n" Bounds="-58.2200006103516,-251.166580782956,375.894889487105,94.7942179631182" />
+    <Link Source="World" Target="Gate" Bounds="-79.2965206809374,-135.285829264323,73.4885492327783,83.9131355776637" />
+    <Link Source="World" Target="GateN" Bounds="-58.2200006103516,-139.560435423437,377.602650855689,100.768579631326" />
+    <Link Source="World" Target="Hello" Bounds="-90.437127479732,-240.245802487177,1.05882805129698,79.1233065561874" />
+    <Link Source="World" Target="f99730b5-2a50-4c3e-9658-e87cba19d4751" Bounds="-90.4924640291368,-135.285829264323,0.721380136181267,79.2862014780681" />
+  </Links>
+  <Categories>
+    <Category Id="Category1" Label="类别 1" Background="#FFE51400" IsTag="True" />
+    <Category Id="Category2" Label="类别 2" Background="#FF339933" IsTag="True" />
+    <Category Id="Category5" Label="类别 5" Background="#FF9B4F96" IsTag="True" />
+    <Category Id="Category8" Label="类别 8" Background="#FF44CCCC" IsTag="True" />
+    <Category Id="Category9" Label="类别 9" Background="#FF00539C" IsTag="True" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="背景" Description="背景色" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsTag" DataType="System.Boolean" />
+    <Property Id="Label" Label="标签" Description="可批注对象的可显示标签" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="类别 8" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Category8')" />
+      <Setter Property="Background" Value="#FF44CCCC" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="类别 9" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Category9')" />
+      <Setter Property="Background" Value="#FF00539C" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="类别 2" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Category2')" />
+      <Setter Property="Background" Value="#FF339933" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="类别 5" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Category5')" />
+      <Setter Property="Background" Value="#FF9B4F96" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="类别 1" ValueLabel="具有类别">
+      <Condition Expression="HasCategory('Category1')" />
+      <Setter Property="Background" Value="#FFE51400" />
+    </Style>
+  </Styles>
+</DirectedGraph>
