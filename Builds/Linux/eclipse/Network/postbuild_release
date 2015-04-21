@@ -1,0 +1,18 @@
+pwd
+if [ ! -d ../../../../../Library/Network ]
+then 
+mkdir ../../../../../Library/Network
+fi
+
+if [ ! -d ../../../../../Library/Network/Lib ]
+then 
+mkdir ../../../../../Library/Network/Lib
+fi
+
+if [ ! -d ../../../../../Library/Network/Network ]
+then 
+mkdir ../../../../../Library/Network/Network
+fi
+
+cp libNetwork.a ../../../../../Library/Network/Lib/libNetwork.a
+cp ../src/*.h ../../../../../Library/Network/Network/

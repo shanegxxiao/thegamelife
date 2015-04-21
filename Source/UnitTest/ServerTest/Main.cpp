@@ -2,54 +2,54 @@
 #include "Utility/MemoryLeakChecker.h"
 #ifdef WIN32
 //#include <vld/vld.h>
-#endif // WIN32
-#include "ConCallback.h"
-#include "Utility/FrameRate.h"
 #include <tchar.h>
 #include <atlconv.h>
+#endif // WIN32
+
+#include "ConCallback.h"
+#include "Utility/FrameRate.h"
 #include <stdlib.h>
+#include "Network/TcpNetwork.h"
 
-#ifdef _DEBUG
-#pragma comment(lib, "../../../../Library/Network/Lib/Network_Debug.lib")
-#else
-#pragma comment(lib, "../../../../Library/Network/Lib/Network_Release.lib")
-#endif // _DEBUG
+bool g_bKeepRunningFlag = true;
 
-BOOL g_bKeepRunningFlag = 1;
-
+#ifdef WIN32
 BOOL WINAPI ConsoleHandler(DWORD msgType)
 {
     if (msgType == CTRL_C_EVENT)
     {
 		printf("Ctrl-C!\n");
-		g_bKeepRunningFlag = 0;
+		g_bKeepRunningFlag = false;
         return TRUE;
     }
     else if (msgType == CTRL_CLOSE_EVENT)
     {
         printf("Close console window!\n");
-        g_bKeepRunningFlag = 0;
+        g_bKeepRunningFlag = false;
         /// Note: The system gives you very limited time to exit in this condition
         return TRUE;
     }
 
     return FALSE;
 }
+#endif//WIN32
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	char* pcSelfAddress = "0.0.0.0";
 	char* pcAddress = pcSelfAddress;
 	if (argc > 1)
 	{
-		USES_CONVERSION;
-		pcAddress = T2A(argv[1]);
+		pcAddress = argv[1];
 	}
 
 	Utility::FrameRate kFrameRate;
 
 	Utility::MemoryLeakChecker kMemoryLeakChecker;
+
+#ifdef WIN32
 	SetConsoleCtrlHandler(ConsoleHandler, TRUE);
+#endif//WIN32
 
 	Network::TcpNetwork kTcpNetwork;
 	
@@ -88,16 +88,19 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	if (kTcpNetwork.startup(kParams))
 	{
+		std::cout << "tcp server start up, listening " << pcAddress << ":7890" << std::endl;
 		kTcpNetwork.listen(pcAddress, 7890);
 		while (g_bKeepRunningFlag)
 		{
-			Sleep(0);
+			boost::this_thread::sleep(boost::posix_time::millisec(0));
 			kFrameRate.stat();
 			kFrameRate.showOnWindowTitle(1e3);
 			kTcpNetwork.running();
 		}
 	}
 	while (!kTcpNetwork.tryShutdown());
+
+	std::cout << "tcp server shutdown" << std::endl;
 
 	kConCallback.outputStats();
 

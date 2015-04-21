@@ -1,11 +1,12 @@
 #ifndef __ConnectionIDGenerator_h__
 #define __ConnectionIDGenerator_h__
 
-#define INVALID_CONNECTION_ID 0xFFFFFFFFFFFFFFFF
+#include "Utility/Typedef.h"
 
 namespace Network
 {
-	typedef unsigned long long ConnectionID;
+	typedef Utility::ConnectionID ConnectionID;
+    extern const ConnectionID INVALID_CONNECTION_ID;
 
 	class ConnectionIDGenerator
 	{

@@ -5,7 +5,7 @@
 
 namespace Network
 {
-	const char* HttpErrorCategoryImpl::name() const
+	const char* HttpErrorCategoryImpl::name() const BOOST_SYSTEM_NOEXCEPT
 	{
 		return "NetworkDefine_HttpErrorCategoryImpl";
 	}

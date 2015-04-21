@@ -3,21 +3,20 @@
 #include <iostream>
 #include <stdio.h>
 /// Compile OTL 4.0/ODBC
-#define OTL_ODBC 
+#ifdef WIN32
+#define OTL_ODBC
+#else
+#define OTL_ODBC_UNIX
+#endif//WIN32
 /// The following #define is required with MyODBC 5.1 and higher
 #define OTL_ODBC_SELECT_STM_EXECUTE_BEFORE_DESCRIBE
 /// Compile OTL with Unicode 
 #define OTL_UNICODE  
 /// include the OTL 4.0 header file
-#include <otl/otlv4.h>
+#undef close
+#include <Otl/otlv4.h>
 
 #include "Database/Database.h"
-
-#ifdef _DEBUG
-#pragma comment(lib, "../../../../Library/Database/Lib/Database_Debug.lib")
-#else
-#pragma comment(lib, "../../../../Library/Database/Lib/Database_Release.lib")
-#endif // _DEBUG
 
 /// connection string
 char* pcConStr = "Driver={MySQL ODBC 5.1 Driver}; Server=localhost; Database=test; Uid=root; Pwd=123; CharSet=UTF8";
@@ -25,7 +24,7 @@ char* pcConStr = "Driver={MySQL ODBC 5.1 Driver}; Server=localhost; Database=tes
 otl_connect db; 
 
 /// insert rows into table
-void insert()
+void otl_insert()
 { 
 	otl_stream o(1, // buffer size should be == 1 always on INSERT. 
 		"insert into test_tab values(:f1<int>,:f2<char[5]>)", 
@@ -53,7 +52,7 @@ void insert()
 	}
 }
 
-void select()
+void otl_select()
 { 
 	otl_stream i(50, // buffer size
 		"select * from test_tab "
@@ -122,8 +121,8 @@ BOOST_AUTO_TEST_CASE(OtlTry)
 			"create table test_tab(f1 int, f2 varchar(11))"
 			);  // create table
 
-		insert(); // insert records into table
-		select(); // select records from table
+		otl_insert(); // insert records into table
+		otl_select(); // select records from table
 
 	}
 	catch(otl_exception& p)
@@ -138,12 +137,11 @@ BOOST_AUTO_TEST_CASE(OtlTry)
 
 BOOST_AUTO_TEST_CASE(DatabaseConnectTest)
 {
-	Database::DatabaseService kService;
-	Runtime::ParamList kParamList;
-	BOOST_CHECK_MESSAGE(kService.Initialize(kParamList), 
+	Database::OtlConnectionMgr kService;
+	BOOST_CHECK_MESSAGE(kService.Initialize(), 
 		"database service initialize failed.");
 	std::string strCon = pcConStr;
-	Database::Connection* pkDataConnection = kService.Connect(strCon);
+	Database::OtlConnection* pkDataConnection = kService.Connect(strCon);
 	BOOST_CHECK_MESSAGE(pkDataConnection != 0, 
 		"database connection error.");
 	BOOST_CHECK_MESSAGE(kService.CloseConnection(pkDataConnection), 
@@ -154,12 +152,11 @@ BOOST_AUTO_TEST_CASE(DatabaseConnectTest)
 
 BOOST_AUTO_TEST_CASE(DatabaseDirectExecuteTest)
 {
-	Database::DatabaseService kService;
-	Runtime::ParamList kParamList;
-	BOOST_CHECK_MESSAGE(kService.Initialize(kParamList), 
+    Database::OtlConnectionMgr kService;
+	BOOST_CHECK_MESSAGE(kService.Initialize(), 
 		"database service initialize failed.");
 	std::string strCon = pcConStr;
-	Database::Connection* pkDataConnection = kService.Connect(strCon);
+	Database::OtlConnection* pkDataConnection = kService.Connect(strCon);
 	BOOST_CHECK_MESSAGE(pkDataConnection != 0, 
 		"database connection error.");
 
@@ -171,7 +168,7 @@ BOOST_AUTO_TEST_CASE(DatabaseDirectExecuteTest)
 		//pkDataConnection->addTask(pkTask0);
 
 		std::string strSQL1 = "drop table test_tab";
-		Database::DirectExecuteTask* pkTask1 = new Database::DirectExecuteTask;
+		Database::OtlDirectExecuteTask* pkTask1 = new Database::OtlDirectExecuteTask;
 		pkTask1->setExecuteSQL(strSQL1);
 		pkDataConnection->addTask(pkTask1);
 	}

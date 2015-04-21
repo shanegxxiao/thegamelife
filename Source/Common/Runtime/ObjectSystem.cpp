@@ -80,7 +80,7 @@ namespace Runtime
 		assert((GetIndexOfServiceInSortedList(kServiceList, pkCreator) == -1));
 
 		/// Now add the module itself.
-		const unsigned int numModules = kServiceList.size();
+		const size_t numModules = kServiceList.size();
 		for (unsigned int i = 0; i < numModules; ++ i)
 		{
 			const bool thisBeforeCurrent  = pkCreator->ConstrainedToComeBefore(kServiceList[i], eMode);
@@ -149,30 +149,15 @@ namespace Runtime
 		return -1;
 	}
 
-	bool ObjectSystem::Initialize(ParamList &kParamList)
+    bool ObjectSystem::Initialize(boost::property_tree::ptree &kParamList)
 	{
 		Object::ms_pkObjectSystem = this;
 		
-		void* pVoidTmp = 0;
-		char* acWorkDir = 0;
-		char* acDllDir = 0;
-		char* acResourceDir = 0;
-		char* acConfigDir = 0;
-		ObjectCreator *pObjectCreator = 0;
-		kParamList.GetParam("acWorkDir", pVoidTmp);
-		acWorkDir = (char*)pVoidTmp;
-		kParamList.GetParam("acDllDir", pVoidTmp);
-		acDllDir = (char*)pVoidTmp;
-		kParamList.GetParam("acResourceDir", pVoidTmp);
-		acResourceDir = (char*)pVoidTmp;
-		kParamList.GetParam("acConfigDir", pVoidTmp);
-		acConfigDir = (char*)pVoidTmp;
-		kParamList.GetParam("gpObjectCreator", pVoidTmp);
-		pObjectCreator = (ObjectCreator*)pVoidTmp;
-		Object::ms_workDir = acWorkDir;
-		Object::ms_dllDir = acDllDir;
-		Object::ms_resourceDir = acResourceDir;
-		Object::ms_cfgDir = acConfigDir;
+        ObjectCreator *pObjectCreator = (ObjectCreator*)kParamList.get<void*>("ObjectSystem.ObjectCreator", 0);
+        Object::ms_workDir = kParamList.get<std::string>("ObjectSystem.WorkDir");
+        Object::ms_dllDir = kParamList.get<std::string>("ObjectSystem.DllDir");
+        Object::ms_resourceDir = kParamList.get<std::string>("ObjectSystem.ResourceDir");
+        Object::ms_cfgDir = kParamList.get<std::string>("ObjectSystem.ConfigDir");
 		if (!LoadServiceAndEntityFromDLL(Object::ms_dllDir.c_str()))
 		{
 			/// System LoadServiceAndEntityFromDLL return false.
@@ -405,7 +390,7 @@ namespace Runtime
 		Object* pkObject, MsgFunc pFunc)
 	{
 		m_kMsgToHandlersMap[uiMessage].insert(PriorityHandlerMap::value_type(uiPriority, MsgHandler(pkObject, pFunc)));
-		return m_kMsgToHandlersMap[uiMessage].size();
+		return (unsigned int)m_kMsgToHandlersMap[uiMessage].size();
 	}
 
 	unsigned int ObjectSystem::UnsubscribeRTMsg(unsigned int uiMessage,
@@ -418,7 +403,7 @@ namespace Runtime
 				kIter->second.mpFunc == pFunc)
 			{
 				m_kMsgToHandlersMap[uiMessage].erase(kIter);
-				return m_kMsgToHandlersMap[uiMessage].size();
+                return (unsigned int)m_kMsgToHandlersMap[uiMessage].size();
 			}
 			++kIter;
 		}
@@ -429,7 +414,7 @@ namespace Runtime
 		WndowRef *pkReceiver)
 	{
 		m_kMsgToWindowRefsMap[uiMessage].insert(PriorityWindowRefMap::value_type(uiPriority, pkReceiver));
-		return m_kMsgToWindowRefsMap[uiMessage].size();
+        return (unsigned int)m_kMsgToWindowRefsMap[uiMessage].size();
 	}
 
 	unsigned int ObjectSystem::UnsubscribeRTMsg(unsigned int uiMessage, WndowRef *pkReceiver)
@@ -440,7 +425,7 @@ namespace Runtime
 			if (kIter->second == pkReceiver)
 			{
 				m_kMsgToWindowRefsMap[uiMessage].erase(kIter);
-				return m_kMsgToWindowRefsMap[uiMessage].size();
+                return (unsigned int)m_kMsgToWindowRefsMap[uiMessage].size();
 			}
 			++kIter;
 		}

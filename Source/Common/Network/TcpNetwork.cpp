@@ -160,11 +160,11 @@ namespace Network
 		running();
 
 		mkWaitActiveConListMutex.lock();
-		unsigned int uiWaitActiveConListSize = mkWaitActiveConList.size();
+        unsigned int uiWaitActiveConListSize = (unsigned int)mkWaitActiveConList.size();
 		mkWaitActiveConListMutex.unlock();
 
 		mkHandshakingConMapMutex.lock();
-		unsigned int uiHandshakingConMapSize = mkHandshakingConMap.size();
+        unsigned int uiHandshakingConMapSize = (unsigned int)mkHandshakingConMap.size();
 		mkHandshakingConMapMutex.unlock();
 
 		if (mpkActiveConContainer->size() == 0 && 
@@ -181,7 +181,7 @@ namespace Network
 	{
 		if (!mbStartup)
 		{
-			return INVALID_CONNECTION_ID;
+            return Network::INVALID_CONNECTION_ID;
 		}
 		boost::asio::ip::address kAdrs = boost::asio::ip::address::from_string(pcServerIP);
 		boost::asio::ip::tcp::endpoint kEndpoint(kAdrs, uiServerPort);
@@ -189,7 +189,7 @@ namespace Network
 		ConnectionPtr pkConnection = mpkIdealConContainer->get(eConnectionType);
 		if (!pkConnection)
 		{
-			return INVALID_CONNECTION_ID;
+            return Network::INVALID_CONNECTION_ID;
 		}
 		pkConnection->setAsClientSide();
 		boost::system::error_code kErrorCode;
@@ -200,7 +200,7 @@ namespace Network
 			pkConnection->pushErrorCode(kErrorCode);
 			boost::lock_guard<boost::mutex> kLockGuard(mkErrorConListMutex);
 			mkErrorConList.push_back(pkConnection);
-			return INVALID_CONNECTION_ID;
+            return Network::INVALID_CONNECTION_ID;
 		}
 		if (pkConnection->isSSLConnection())
 		{
@@ -211,14 +211,14 @@ namespace Network
 				pkConnection->pushErrorCode(kErrorCode);
 				boost::lock_guard<boost::mutex> kLockGuard(mkErrorConListMutex);
 				mkErrorConList.push_back(pkConnection);
-				return INVALID_CONNECTION_ID;
+                return Network::INVALID_CONNECTION_ID;
 			}
 		}
 		if (!pkConnection->open())
 		{
 			boost::lock_guard<boost::mutex> kLockGuard(mkErrorConListMutex);
 			mkErrorConList.push_back(pkConnection);
-			return INVALID_CONNECTION_ID;
+            return Network::INVALID_CONNECTION_ID;
 		}
 
 		mpkActiveConContainer->put(pkConnection->getID(), pkConnection);
@@ -234,7 +234,7 @@ namespace Network
 	{
 		if (!mbStartup)
 		{
-			return INVALID_CONNECTION_ID;
+            return Network::INVALID_CONNECTION_ID;
 		}
 		boost::asio::ip::address kAdrs = boost::asio::ip::address::from_string(pcServerIP);
 		boost::asio::ip::tcp::endpoint kEndpoint(kAdrs, uiServerPort);
@@ -242,7 +242,7 @@ namespace Network
 		ConnectionPtr pkConnection = mpkIdealConContainer->get(eConnectionType);
 		if (!pkConnection)
 		{
-			return INVALID_CONNECTION_ID;
+            return Network::INVALID_CONNECTION_ID;
 		}
 		pkConnection->setAsClientSide();
 		pkConnection->asyncConnect(kEndpoint,

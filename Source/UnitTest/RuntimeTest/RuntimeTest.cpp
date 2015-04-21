@@ -1,6 +1,7 @@
 #include "UnitTestPCH.h"
 #include <boost/test/unit_test.hpp>
 #include "Utility/FileSystemHelper.h"
+#include "Runtime/Runtime.h"
 
 struct RuntimeTestSuiteFixture 
 {
@@ -18,21 +19,20 @@ struct RuntimeTestCaseFixture
 {
 	std::vector<std::string> kInitVector;
 	std::vector<std::string> kShutVector;
-	Runtime::ParamList kParamList;
+    boost::property_tree::ptree kParamList;
 	RuntimeTestCaseFixture()
 	{
 		void* pInitVector = (void*)&kInitVector;
-		kParamList.AddParam("InitVector", pInitVector);
+		kParamList.add("InitVector", pInitVector);
 		void* pShutVector = (void*)&kShutVector;
-		kParamList.AddParam("ShutVector", pShutVector);
+        kParamList.add("ShutVector", pShutVector);
 
 		std::string strWorkDir = Utility::FileSystemHelper::GetModulePath();
-		void* pVoidTmp = (void*)strWorkDir.c_str();
-		kParamList.AddParam("acWorkDir", pVoidTmp);
-		kParamList.AddParam("acDllDir", pVoidTmp);
-		kParamList.AddParam("acResourceDir", pVoidTmp);
-		kParamList.AddParam("acConfigDir", pVoidTmp);
-		kParamList.AddParam("gpObjectCreator", (void*)RUNTIME_EXPORTED_MEMBER);
+        kParamList.add("acWorkDir", strWorkDir);
+        kParamList.add("acDllDir", strWorkDir);
+        kParamList.add("acResourceDir", strWorkDir);
+        kParamList.add("acConfigDir", strWorkDir);
+        kParamList.add("gpObjectCreator", (void*)RUNTIME_EXPORTED_MEMBER);
 
 		gpkObjectSystem->Initialize(kParamList);
 	}

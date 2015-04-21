@@ -50,6 +50,7 @@ libNetwork.a: $(OBJS) $(USER_OBJS)
 	ar -r  "libNetwork.a" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+	$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
@@ -60,7 +61,11 @@ pre-build:
 	-../prebuild_release
 	-@echo ' '
 
+post-build:
+	-../postbuild_release
+	-@echo ' '
+
 .PHONY: all clean dependents
-.SECONDARY: main-build pre-build
+.SECONDARY: main-build pre-build post-build
 
 -include ../makefile.targets

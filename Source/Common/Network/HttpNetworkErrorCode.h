@@ -7,7 +7,7 @@
 
 namespace Network
 {
-	/// HTTP´íÎóÂë¶¨Òå
+	/// HTTPï¿½ï¿½ï¿½ï¿½ï¿½ë¶¨ï¿½ï¿½
 	/// @{
 	enum HttpError
 	{
@@ -23,7 +23,7 @@ namespace Network
 		: public boost::system::error_category
 	{
 	public:
-		virtual const char* name() const;
+		virtual const char* name() const BOOST_SYSTEM_NOEXCEPT;
 		virtual std::string message(int ev) const;
 	};
 

@@ -15,7 +15,7 @@ namespace Network
 		~IdealConnectionContainer();
 
 		ConnectionPtr get(const ConnectionType& eType);
-		void put(ConnectionPtr& pkConnection);
+		void put(ConnectionPtr pkConnection);
 
 	private:
 		ConnectionPtr newConnection(const ConnectionType& eType);

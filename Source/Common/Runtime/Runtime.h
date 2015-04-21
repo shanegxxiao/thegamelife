@@ -7,7 +7,5 @@
 #include "DynCreate.h"
 #include "Object.h"
 #include "ObjectSystem.h"
-#include "Param.h"
-#include "ParamList.h"
 
 #endif//__Runtime_h__

@@ -18,7 +18,7 @@ namespace Runtime
 
 	}
 
-	bool Object::Initialize(ParamList& kParamList)
+    bool Object::Initialize(boost::property_tree::ptree& kParamList)
 	{
 		return true;
 	}

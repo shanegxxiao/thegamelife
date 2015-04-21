@@ -1,0 +1,41 @@
+{
+    "folder2rm":
+    [
+    "../Boost",
+    "../OpenSSL",
+    "../Otl",
+    "../Vld",
+    "../Network",
+    "../Runtime",
+    "../Database",
+    "../Utility",
+    "../zlib",
+    "../hiredis"
+    ],
+
+    "folder2mk":
+    [
+    "../Network",
+    "../Network/Network",
+    "../Network/Lib",
+    "../Runtime",
+    "../Runtime/Runtime",
+    "../Runtime/Lib",
+    "../Database",
+    "../Database/Database",
+    "../Database/Lib",
+    "../Utility",
+    "../Utility/Utility",
+    "../Utility/Lib"
+    ],
+
+    "file2extract":
+    [
+    "../Boost_1_57_0_Win64.7z",
+    "../OpenSSL_1.0.2_Win64_with_zlib.7z",
+    "../Otl.7z",
+    "../Vld.7z",
+    "../zlib_1.2.8_Win64.7z",
+    "../hiredis_Win64.7z"
+    ]
+}

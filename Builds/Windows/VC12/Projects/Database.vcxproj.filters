@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="OTL">
+      <UniqueIdentifier>{d248d702-02a2-44c4-ac53-aa1df535d85d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{20bd5531-6341-4278-9cd6-bc37c5432a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Redis">
+      <UniqueIdentifier>{e3bebe56-c313-4ac2-a99a-a7fde05f8689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Redis\RedisWin64">
+      <UniqueIdentifier>{25ac13d3-e556-486a-9b1e-596aaed3909a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\targetver.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\DatabasePCH.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\Database.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\OtlConnection.h">
+      <Filter>OTL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\OtlTask.h">
+      <Filter>OTL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\OtlDirectExecuteTask.h">
+      <Filter>OTL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\RedisClient.h">
+      <Filter>Redis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\RedisWin64\ae.h">
+      <Filter>Redis\RedisWin64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\OtlConnectionMgr.h">
+      <Filter>OTL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Database\RedisClientMgr.h">
+      <Filter>Redis</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\DatabasePCH.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\OtlConnection.cpp">
+      <Filter>OTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\OtlTask.cpp">
+      <Filter>OTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\OtlDirectExecuteTask.cpp">
+      <Filter>OTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\RedisClient.cpp">
+      <Filter>Redis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\RedisWin64\ae.c">
+      <Filter>Redis\RedisWin64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\RedisWin64\zmalloc.c">
+      <Filter>Redis\RedisWin64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\RedisWin64\adlist.c">
+      <Filter>Redis\RedisWin64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\OtlConnectionMgr.cpp">
+      <Filter>OTL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Database\RedisClientMgr.cpp">
+      <Filter>Redis</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

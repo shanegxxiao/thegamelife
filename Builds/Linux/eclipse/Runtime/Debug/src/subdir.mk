@@ -4,8 +4,9 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/BoostLogTarget.cpp \
 ../src/ConsoleSystem.cpp \
-../src/LogFile.cpp \
+../src/LogHtmlFile.cpp \
 ../src/LogService.cpp \
 ../src/LogSystem.cpp \
 ../src/LogTarget.cpp \
@@ -13,14 +14,12 @@ CPP_SRCS += \
 ../src/Object.cpp \
 ../src/ObjectCreator.cpp \
 ../src/ObjectSystem.cpp \
-../src/Param.cpp \
-../src/ParamList.cpp \
-../src/RefObject.cpp \
 ../src/RuntimePCH.cpp 
 
 OBJS += \
+./src/BoostLogTarget.o \
 ./src/ConsoleSystem.o \
-./src/LogFile.o \
+./src/LogHtmlFile.o \
 ./src/LogService.o \
 ./src/LogSystem.o \
 ./src/LogTarget.o \
@@ -28,14 +27,12 @@ OBJS += \
 ./src/Object.o \
 ./src/ObjectCreator.o \
 ./src/ObjectSystem.o \
-./src/Param.o \
-./src/ParamList.o \
-./src/RefObject.o \
 ./src/RuntimePCH.o 
 
 CPP_DEPS += \
+./src/BoostLogTarget.d \
 ./src/ConsoleSystem.d \
-./src/LogFile.d \
+./src/LogHtmlFile.d \
 ./src/LogService.d \
 ./src/LogSystem.d \
 ./src/LogTarget.d \
@@ -43,9 +40,6 @@ CPP_DEPS += \
 ./src/Object.d \
 ./src/ObjectCreator.d \
 ./src/ObjectSystem.d \
-./src/Param.d \
-./src/ParamList.d \
-./src/RefObject.d \
 ./src/RuntimePCH.d 
 
 
@@ -53,7 +47,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I../../../../../Library/Boost -I../../../../../Library/OpenSSL -I../../../../../Library/Utility -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -std=c++0x -I../../../../../Library/Boost -I../../../../../Library/OpenSSL -I../../../../../Library/Utility -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

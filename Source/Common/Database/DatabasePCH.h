@@ -7,12 +7,21 @@
 #define __DatabasePCH_h__
 
 #include "targetver.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
 #include <string>
+#include <list>
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
 
-#include "Runtime/Runtime.h"
+extern "C"
+{
+#include "hiredis/hiredis.h"
+#include "hiredis/async.h"
+#include "hiredis/adapters/ae.h"
+}
 
 /// Compile OTL 4.0/ODBC
 #ifdef WIN32
@@ -27,8 +36,7 @@
 /// Compile OTL with Unicode 
 #define OTL_UNICODE  
 /// include the OTL 4.0 header file
+#undef close
 #include <Otl/otlv4.h>
-
-EXTERN_RUNTIME_EXPORTED_MEMBER;
 
 #endif//__DatabasePCH_h__

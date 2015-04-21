@@ -157,8 +157,8 @@ BOOST_AUTO_TEST_CASE(HttpNetworkTest1)
 	boost::uniform_int<> distributionRequest(100, 200);
 	boost::uniform_int<> distributionTime(1000, 1000);
 	boost::mt19937 engine;
-	boost::variate_generator<boost::mt19937, boost::uniform_int<>> randomRequest(engine, distributionRequest);
-	boost::variate_generator<boost::mt19937, boost::uniform_int<>> randomTime(engine, distributionTime);
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > randomRequest(engine, distributionRequest);
+	boost::variate_generator< boost::mt19937, boost::uniform_int<> > randomTime(engine, distributionTime);
 	int randomRequestCnt = randomRequest();
 	int randomTimeCnt = randomTime();
 	g_totalRequestCnt = 0;

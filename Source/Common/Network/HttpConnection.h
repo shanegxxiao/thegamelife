@@ -100,7 +100,7 @@ namespace Network
 		boost::posix_time::ptime mkOpenTick;
 		unsigned int muiStatus;
 		boost::system::error_code mkLastErrorCode;
-		/// connection close Àï²»ÄÜÊÍ·Å£¬ÐèÒªÔÚresetÀïÊÍ·Å£¬·ÀÖ¹error handlerµÄÊ±ºòÕÒ²»µ½±ØÒªÐÅÏ¢
+		/// connection close ï¿½ï²»ï¿½ï¿½ï¿½Í·Å£ï¿½ï¿½ï¿½Òªï¿½ï¿½resetï¿½ï¿½ï¿½Í·Å£ï¿½ï¿½ï¿½Ö¹error handlerï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ï¢
 		/// @{
 		HttpRequestPtr mspRequest;
 		HttpResponePtr mspRespone;
@@ -112,11 +112,11 @@ namespace Network
 
 	inline bool HttpConnection::isClosed()
 	{
-		return ((getStatus() & Status::closed) > 0);
+		return ((getStatus() & closed) > 0);
 	}
 	inline bool HttpConnection::isTimeout()
 	{
-		return ((getStatus() & Status::network_timeout) > 0);
+		return ((getStatus() & network_timeout) > 0);
 	}
 	inline unsigned int HttpConnection::getStatus()
 	{
@@ -124,7 +124,7 @@ namespace Network
 	}
 	inline boost::system::error_code HttpConnection::getLastError()
 	{
-		if ((getStatus() & Status::responed) > 0)
+		if ((getStatus() & responed) > 0)
 		{
 			boost::system::error_code kErrorCode;
 			return kErrorCode;

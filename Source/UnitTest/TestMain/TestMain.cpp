@@ -1,14 +1,17 @@
 #include "UnitTestPCH.h"
 #define BOOST_TEST_MODULE MainTest
 #include <boost/test/included/unit_test.hpp>
-
 #include "TestMain.h"
-#ifdef WIN32
+#include "Utility/MemoryLeakChecker.h"
+
+#if defined(WIN32)&&defined(_DEBUG)
 #include <vld/vld.h>
 #endif // WIN32
-#include "Utility/MemoryLeakChecker.h"
+
+
 bool gbKeepRunningFlag = true;
 
+#ifdef WIN32
 BOOL WINAPI ConsoleHandler(DWORD msgType)
 {
 	if (msgType == CTRL_C_EVENT)
@@ -27,16 +30,23 @@ BOOL WINAPI ConsoleHandler(DWORD msgType)
 
 	return FALSE;
 }
+#endif//WIN32
 
 TestMain::TestMain()
 {
 	mpkMemoryLeakChecker = new Utility::MemoryLeakChecker;
+
+#ifdef WIN32
 	SetConsoleCtrlHandler(ConsoleHandler, TRUE);
+#endif//WIN32
+
 }
 TestMain::~TestMain()
 {
 	delete mpkMemoryLeakChecker;
+#ifdef WIN32
 	system("pause");
+#endif//WIN32
 }
 
 BOOST_GLOBAL_FIXTURE(TestMain);

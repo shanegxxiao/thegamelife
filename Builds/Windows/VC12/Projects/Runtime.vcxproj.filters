@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{720d1aa0-2bb7-4a0d-8b17-6b59633f36a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Log">
+      <UniqueIdentifier>{447a3a18-5cf9-4494-b9b6-1f1107cedeb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectSystem">
+      <UniqueIdentifier>{cc2da6d8-698e-45f5-8f1d-dd164e404990}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\ConsoleSystem.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\LogService.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\LogSystem.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\LogSystemDefine.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\LogTarget.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\LogToVSOutput.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\RuntimeDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\Runtime.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\RuntimePCH.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\targetver.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\DynCreate.h">
+      <Filter>ObjectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\Object.h">
+      <Filter>ObjectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\ObjectCreator.h">
+      <Filter>ObjectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\ObjectSystem.h">
+      <Filter>ObjectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\LogHtmlFile.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Runtime\BoostLogTarget.h">
+      <Filter>Log</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\ConsoleSystem.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\LogService.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\LogSystem.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\LogTarget.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\LogToVSOutput.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\RuntimePCH.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\Object.cpp">
+      <Filter>ObjectSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\ObjectCreator.cpp">
+      <Filter>ObjectSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\ObjectSystem.cpp">
+      <Filter>ObjectSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\LogHtmlFile.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Runtime\BoostLogTarget.cpp">
+      <Filter>Log</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

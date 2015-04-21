@@ -36,7 +36,7 @@ namespace Network
 	DownloadTask* DownloadMgr::addTask(std::string strURL, const std::string& strLocal, unsigned int size)
 	{
 		// 解析URL的协议类型，调用对应的协议下载
-		int pos = strURL.find_first_of(":");
+		int pos = (int)strURL.find_first_of(":");
 		if (pos == -1)
 			return 0;
 		std::string strProtocol = strURL.substr(0, pos);

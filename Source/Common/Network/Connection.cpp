@@ -1,7 +1,7 @@
 #include "NetworkPCH.h"
 #include "Connection.h"
 
-#if defined(__UNIX__)
+#if defined(__GNUC__)
 
 #include <netinet/tcp.h>
 #include <sys/types.h>
@@ -17,7 +17,6 @@
 
 #else
 
-#define WIN32_LEAN_AND_MEAN
 #include <winsock2.h>
 #include <Windows.h>
 #include <MSTcpIP.h>
@@ -90,7 +89,7 @@ namespace Network
 			{
 				if (mpkTcpNetworkParams->bCloseOnBufferOverflow)
 				{
-					/// ·¢ËÍ»º³åÇøÒç³ö£¬Ö±½Ó¶Ï¿ª
+					/// ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¶Ï¿ï¿½
 					asyncClose();
 					boost::system::error_code kErrorCode = Network::send_buff_overflow;
 					pushErrorCode(kErrorCode);
@@ -99,7 +98,7 @@ namespace Network
 				pushToExtraSendBuff(acBuff, uiSize);
 			}
 		}
-		/// Èç¹ûIO·¢ËÍÇëÇó½ÓÁ¦¶Ï¿ª²¢ÇÒÁ´½ÓÃ»ÓÐ¹Ø±ÕÔò¼ÌÐø·¢ÆðIO·¢ËÍÇëÇó
+		/// ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¹Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!mbSendIOReqRelay && !isClosed())
 		{
 			send(true);
@@ -108,7 +107,7 @@ namespace Network
 	}
 	unsigned int Connection::read(unsigned char* acBuff, unsigned int uiBuffSize)
 	{
-		/// Èç¹ûIO½ÓÊÕÇëÇó½ÓÁ¦¶Ï¿ª²¢ÇÒÁ´½ÓÃ»ÓÐ¹Ø±ÕÔò¼ÌÐø·¢ÆðIO½ÓÊÕÇëÇó
+		/// ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¹Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!mbRecvIOReqRelay && !isClosed())
 		{
 			recv(true);
@@ -117,7 +116,7 @@ namespace Network
 	}
 	bool Connection::readPacketsBegin(unsigned char*& acBuff, unsigned int& uiReadableSize)
 	{
-		/// Èç¹ûIO½ÓÊÕÇëÇó½ÓÁ¦¶Ï¿ª²¢ÇÒÁ´½ÓÃ»ÓÐ¹Ø±ÕÔò¼ÌÐø·¢ÆðIO½ÓÊÕÇëÇó
+		/// ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¹Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!mbRecvIOReqRelay && !isClosed())
 		{
 			recv(true);
@@ -163,12 +162,12 @@ namespace Network
 	}
 	void Connection::trySendExtraSendBuff()
 	{
-		/// Ö»ÓÐµ±»º³åÇøÒç³ö²»¹Ø±Õ²ÅÓÐ¿ÉÄÜÓÐ²»ÄÜ¼°Ê±·¢ËÍµÄÊý¾Ý
+		/// Ö»ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õ²ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½Ü¼ï¿½Ê±ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½
 		if (mpkTcpNetworkParams->bCloseOnBufferOverflow)
 		{
 			return;
 		}
-		/// Èç¹ûIO·¢ËÍÇëÇó½ÓÁ¦¶Ï¿ª²¢ÇÒÁ´½ÓÃ»ÓÐ¹Ø±ÕÔò¼ÌÐø·¢ÆðIO·¢ËÍÇëÇó
+		/// ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¹Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!mbSendIOReqRelay && !isClosed())
 		{
 			writeExtraSendBuff();
@@ -181,13 +180,13 @@ namespace Network
 		{
 			return true;
 		}
-#ifdef __UNIX__
+#ifdef __GNUC__
 
 		// For *n*x systems
-		int native_fd = socket->native();
+		int native_fd = getSocket().native();
 		int timeout = mpkTcpNetworkParams->ulKeepAliveTime;
 		int intvl = mpkTcpNetworkParams->ulKeepAliveInterval;
-		int probes = 5;///< ÔÊÐí¶ªÊ§µÄkeep alive°üÊýÁ¿
+		int probes = 5;///< ï¿½ï¿½ï¿½?Ê§ï¿½ï¿½keep aliveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int on = mpkTcpNetworkParams->bKeepAlive ? 1 : 0;
 
 		int ret_keepalive = setsockopt(native_fd, SOL_SOCKET, SO_KEEPALIVE, (void*) &on, sizeof(int));
@@ -205,7 +204,7 @@ namespace Network
 
 #elif defined(__OSX__)
 
-		int native_fd = socket->native();
+		int native_fd = getSocket().native();
 		int timeout = mpkTcpNetworkParams->ulKeepAliveTime;
 		int intvl = mpkTcpNetworkParams->ulKeepAliveInterval;
 		int on = mpkTcpNetworkParams->bKeepAlive ? 1 : 0;

@@ -14,17 +14,13 @@ Service0::~Service0()
 {
 
 }
-bool Service0::Initialize(Runtime::ParamList& kParamList)
+bool Service0::Initialize(boost::property_tree::ptree& kParamList)
 {
 	std::vector<std::string> *pkInitVector = 0;
-	void* pInitVector = 0;
-	kParamList.GetParam("InitVector", pInitVector);
-	pkInitVector = (std::vector<std::string> *)pInitVector;
+	pkInitVector = (std::vector<std::string>*)kParamList.get<void*>("InitVector");
 	pkInitVector->push_back("Service0::Initialize");
-
-	void* pShutVector = 0;
-	kParamList.GetParam("ShutVector", pShutVector);
-	mpkShutVector = (std::vector<std::string>*)pShutVector;
+	
+    mpkShutVector = (std::vector<std::string>*)kParamList.get<void*>("ShutVector");
 
 	return true;
 }

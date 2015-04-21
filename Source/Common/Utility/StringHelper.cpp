@@ -11,7 +11,7 @@ namespace Utility
 
 		// Slow but at least we have it.
 
-		unsigned int str2len = strlen( str2 );
+        unsigned int str2len = (unsigned int)strlen(str2);
 		while( *str1 )
 		{
 #ifdef WIN32

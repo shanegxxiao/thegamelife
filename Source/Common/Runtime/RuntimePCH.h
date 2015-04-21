@@ -19,6 +19,9 @@
 
 #include <boost/assert.hpp>
 #include <boost/locale.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #include "Utility/Utility.h"

@@ -2,15 +2,7 @@
 #include <boost/test/unit_test.hpp>
 #include <iostream>
 #include <stdio.h>
-#include "OpenSSL/rc4.h"
-
-#ifdef _DEBUG
-#pragma comment(lib, "../../../../Library/OpenSSL/Lib/libeay32.lib")
-#pragma comment(lib, "../../../../Library/OpenSSL/Lib/ssleay32.lib")
-#else
-#pragma comment(lib, "../../../../Library/OpenSSL/Lib/libeay32.lib")
-#pragma comment(lib, "../../../../Library/OpenSSL/Lib/ssleay32.lib")
-#endif // _DEBUG
+#include "openssl/rc4.h"
 
 BOOST_AUTO_TEST_SUITE(OpensslTestSuite)
 

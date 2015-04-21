@@ -1,31 +1,128 @@
 if [ ! -d Utility ]
 then 
 mkdir Utility
-ln -s ./../../../../Source/Common/Utility/ ./Utility/src
 fi
+if [ -d ./Utility/src ]
+then
+    if [ -d ./Utility/src/Utility ]
+    then
+        rm ./Utility/src/Utility
+    fi
+    rm ./Utility/src
+fi
+ln -s ./../../../../Source/Common/Utility/ ./Utility/src
 
 if [ ! -d Runtime ]
 then
 mkdir Runtime
-ln -s ./../../../../Source/Common/Runtime/ ./Runtime/src
 fi
+if [ -d ./Runtime/src ]
+then
+    if [ -d ./Runtime/src/Runtime ]
+    then
+        rm ./Runtime/src/Runtime
+    fi
+    rm ./Runtime/src
+fi
+
+ln -s ./../../../../Source/Common/Runtime/ ./Runtime/src
 
 if [ ! -d Network ]
 then
 mkdir Network
-ln -s ./../../../../Source/Common/Network/ ./Network/src
 fi
+if [ -d ./Network/src ]
+then
+    if [ -d ./Network/src/Network ]
+    then
+        rm ./Network/src/Network
+    fi
+    rm ./Network/src
+fi
+ln -s ./../../../../Source/Common/Network/ ./Network/src
 
 if [ ! -d Database ]
 then
 mkdir Database
-ln -s ./../../../../Source/Common/Database/ ./Database/src
 fi
-
+if [ -d ./Database/src ]
+then
+    if [ -d ./Database/src/Database ]
+    then
+        rm ./Database/src/Database
+    fi
+    rm ./Database/src
+fi
+ln -s ./../../../../Source/Common/Database/ ./Database/src
 
 if [ ! -d UnitTest ]
 then
 mkdir UnitTest
 fi
+if [ -d ./UnitTest/src ]
+then
+    if [ -d ./UnitTest/src/UnitTest ]
+    then
+        rm ./UnitTest/src/UnitTest
+    fi
+    rm ./UnitTest/src
+fi
 ln -s ./../../../../Source/UnitTest/ ./UnitTest/src
+
+if [ ! -d ClientTest ]
+then
+mkdir ClientTest
+fi
+if [ -d ./ClientTest/src ]
+then
+    if [ -d ./ClientTest/src/ClientTest ]
+    then
+        rm ./ClientTest/src/ClientTest
+    fi
+    rm ./ClientTest/src
+fi
+ln -s ./../../../../Source/UnitTest/ClientTest ./ClientTest/src
+
+if [ ! -d ServerTest ]
+then
+mkdir ServerTest
+fi
+if [ -d ./ServerTest/src ]
+then
+    if [ -d ./ServerTest/src/ServerTest ]
+    then
+        rm ./ServerTest/src/ServerTest
+    fi
+    rm ./ServerTest/src
+fi
+ln -s ./../../../../Source/UnitTest/ServerTest ./ServerTest/src
+
+if [ ! -d Game ]
+then
+mkdir Game
+fi
+if [ -d ./Game/src ]
+then
+    if [ -d ./Game/src/Game ]
+    then
+        rm ./Game/src/Game
+    fi
+    rm ./Game/src
+fi
+ln -s ./../../../../Source/Server/Game ./Game/src
+
+if [ ! -d Gate ]
+then
+mkdir Gate
+fi
+if [ -d ./Gate/src ]
+then
+    if [ -d ./Gate/src/Gate ]
+    then
+        rm ./Gate/src/Gate
+    fi
+    rm ./Gate/src
+fi
+ln -s ./../../../../Source/Server/Gate ./Gate/src
+
 

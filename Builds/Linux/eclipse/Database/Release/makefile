@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include src/RedisX64/subdir.mk
 -include src/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -50,6 +51,7 @@ libDatabase.a: $(OBJS) $(USER_OBJS)
 	ar -r  "libDatabase.a" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+	$(MAKE) --no-print-directory post-build
 
 # Other Targets
 clean:
@@ -60,7 +62,11 @@ pre-build:
 	-../prebuild_release
 	-@echo ' '
 
+post-build:
+	-../postbuild_release
+	-@echo ' '
+
 .PHONY: all clean dependents
-.SECONDARY: main-build pre-build
+.SECONDARY: main-build pre-build post-build
 
 -include ../makefile.targets

@@ -1,0 +1,3 @@
+./GameDebug
+./GateDebug
+

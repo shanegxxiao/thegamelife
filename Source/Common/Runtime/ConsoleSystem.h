@@ -10,25 +10,24 @@
 #ifdef WIN32
 namespace Runtime
 {
-	typedef boost::function<void (stdstring strCmd)> ConsoleCallback;
-	typedef boost::function<bool (unsigned long msgType)> ConsoleCtrlHandle;
+	typedef boost::function<void (stdstring strCmd)> ConsoleInputHandler;
+    typedef boost::function<bool (unsigned long msgType)> ConsoleCtrlHandle;
 	class ConsoleSystem : public LogTarget
 	{
 	public:
-		ConsoleSystem(const TCHAR *pcCaptionName, ConsoleCallback pfnInputCallback,
+		ConsoleSystem(const TCHAR *pcCaptionName, ConsoleInputHandler pfnInputCallback,
 			ConsoleCtrlHandle pfnCtrlHandle, HWND hWnd = 0, int ix = 0, int iy = 0,
 			int iRowCnt = 100, int iColCnt = 80);
 		virtual ~ConsoleSystem();
 
-		virtual void WriteLog(LogLevel eLogLevel, char *pcLogInfo);
-		virtual bool Initialize();
-		virtual bool Shutdown();
-		
-		virtual void Running();
+        virtual bool Initialize();
+        virtual void Running();
+        virtual bool Shutdown();
+        virtual void WriteLog(LogLevel eLogLevel, std::string msg);
+        virtual void WriteLog(LogLevel eLogLevel, std::wstring msg);
 
 		bool Print(LogLevel eLogLevel, const TCHAR *pcFormat, ...);
 		void ClearScreen();
-
 		void SubmitCmd(stdstring strCmd);
 		
 	private:
@@ -67,7 +66,7 @@ namespace Runtime
 
 		CRITICAL_SECTION m_kOutputRectCS;
 
-		ConsoleCallback m_pfnInputCallback;
+		ConsoleInputHandler m_pfnInputCallback;
 		COORD m_kInputCursorPos;
 		stdstring m_strCommand;
 		std::list<stdstring> m_kCommandList;

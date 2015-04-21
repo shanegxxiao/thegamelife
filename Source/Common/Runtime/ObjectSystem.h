@@ -2,6 +2,9 @@
 #define __ObjectSystem_h__
 
 #include "RuntimeDefine.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 
 namespace Runtime
 {
@@ -14,7 +17,7 @@ namespace Runtime
 		static ObjectSystem* GetInstancePtr();
 		virtual ~ObjectSystem(void);
 
-		bool Initialize(ParamList &kParamList);
+        bool Initialize(boost::property_tree::ptree &kParamList);
 		bool Shutdown();
 
 		Object *GetServiceObject(std::string strClassName);

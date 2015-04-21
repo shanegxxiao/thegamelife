@@ -1,0 +1,13 @@
+pwd
+g++ -D GCC_BUILD -D _DEBUG -D _LIB \
+-I"../../../../../Library/Boost" \
+-I"../../../../../Library/OpenSSL" \
+-I"../../../../../Library/Otl" \
+-I"../../../../../Library/hiredis" \
+-I"../../../../../Library/zlib" \
+-I"../../../../../Library/Utility" \
+-I"../../../../../Library/Runtime" \
+-I"../../../../../Library/Network" \
+-I"../../../../../Library/Database" \
+-I"../../../../../Source/Server/Game/Main" \
+../src/Main/GamePCH.h

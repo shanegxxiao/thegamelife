@@ -9,7 +9,7 @@ public:
 	Service1();
 	virtual ~Service1();
 
-	virtual bool Initialize(Runtime::ParamList& kParamList);
+    virtual bool Initialize(boost::property_tree::ptree& kParamList);
 	virtual void Running();
 	virtual bool Shutdown();
 

@@ -12,14 +12,14 @@ namespace Network
 	class Connection;
 	typedef boost::shared_ptr<Connection> ConnectionPtr;
 
-	/// ÓÃÓÚ¹ÜÀíTCPÊı¾İÁ÷£¬½ÓÊÕºÍ·¢ËÍ»º³åÇøÈç¹ûÒç³ö¾ÍÖ±½Ó¶Ï¿ªÁ´½Ó
+	/// ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½TCPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÕºÍ·ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¶Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½
 	class Connection : public boost::enable_shared_from_this<Connection>
 	{
 	public:
 		friend class IdealConnectionContainer;
 		friend class TcpNetwork;
 		typedef boost::asio::ip::tcp::socket Socket;
-		typedef std::vector<const boost::system::error_code> ErrorCodeVector;
+		typedef std::vector<boost::system::error_code> ErrorCodeVector;
 		typedef ExtraSendBufferPool<unsigned char> UCExSendBufferPool;
 		typedef boost::function<void(const boost::system::error_code)> OnConnectFunc;
 		typedef boost::function<void(const boost::system::error_code)> OnHandShakeFunc;
@@ -34,22 +34,22 @@ namespace Network
 		virtual void handShake(boost::system::error_code& kErrorCode){}
 		virtual void asyncHandShake(OnHandShakeFunc pfnOnHandShakeFunc){}
 
-		/// Ö»ÄÜÔÚÖ÷Ïß³Ìµ÷ÓÃ£¬»òÖ»ÄÜÓĞÎ¨Ò»Ò»¸öÏß³Ìµ÷ÓÃ
+		/// Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Î¨Ò»Ò»ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½
 		virtual bool open() = 0;
-		/// Ç¿ÖÆ¹Ø±Õ£¬ÓĞ¿ÉÄÜµ¼ÖÂ½ÓÊÕ»º´æºÍ·¢ËÍ»º´æÖĞµÄÊı¾İÎ´±»´¦Àí
+		/// Ç¿ï¿½Æ¹Ø±Õ£ï¿½ï¿½Ğ¿ï¿½ï¿½Üµï¿½ï¿½Â½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½Í·ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		virtual void close() = 0;
-		/// Òì²½¹Ø±Õ£¬Èç¹ûgetErrorCodes£¨£©Îª¿ÕÔò»á½«Êı¾İ·¢ËÍÍê³É²¢ÇÒ½ÓÊÕµÄÍêÕûÊı¾İ´¦ÀíÍê²Å»á¹Ø±Õ
+		/// ï¿½ì²½ï¿½Ø±Õ£ï¿½ï¿½ï¿½ï¿½getErrorCodesï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½á½«ï¿½ï¿½İ·ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½ï¿½Ò½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ´ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½Ø±ï¿½
 		virtual void asyncClose() = 0;
-		/// SSLConnectionÁ´½Ó¹Ø±ÕºóÔÙÖØÓÃÊ±»á·¢ÉúhandshakeÊ§°Ü£¬ËùÒÔĞ´ÁËÕâ¸ö½Ó¿ÚÖØÖÃÁ´½Ó
+		/// SSLConnectionï¿½ï¿½ï¿½Ó¹Ø±Õºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½á·¢ï¿½ï¿½handshakeÊ§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		virtual void reset() = 0;
 
-		/// »ñÈ¡Ô¶³ÌIP£¬std::stringĞÎÊ½
+		/// ï¿½ï¿½È¡Ô¶ï¿½ï¿½IPï¿½ï¿½std::stringï¿½ï¿½Ê½
 		virtual std::string getRemoteIP() = 0;
-		/// »ñÈ¡Ô¶³ÌIP, unsigned longĞÎÊ½
+		/// ï¿½ï¿½È¡Ô¶ï¿½ï¿½IP, unsigned longï¿½ï¿½Ê½
 		virtual unsigned long getRemoteAddress() = 0;
-		/// »ñÈ¡±¾µØIP£¬std::stringĞÎÊ½
+		/// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½std::stringï¿½ï¿½Ê½
 		virtual std::string getLocalIP() = 0;
-		/// »ñÈ¡±¾µØIP, unsigned longĞÎÊ½
+		/// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½IP, unsigned longï¿½ï¿½Ê½
 		virtual unsigned long getLocalAddress() = 0;
 
 		virtual bool isSSLConnection();
@@ -59,50 +59,50 @@ namespace Network
 		bool isServerSide();
 		bool isClientSide();
 
-		/// ³¢ÊÔ¹Ø±Õ£¬Ö»ÓĞÒÑ¾­±»markShouldBeClosed()²¢ÇÒ½ÓÊÕºÍ·¢ËÍ»º´æ¶¼Îª¿Õ
-		/// µÄÊ±ºò²Å¹Ø±ÕºÍ·µ»Øtrue£¬·ñÔò·µ»Øfalse
+		/// ï¿½ï¿½ï¿½Ô¹Ø±Õ£ï¿½Ö»ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½markShouldBeClosed()ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ÕºÍ·ï¿½ï¿½Í»ï¿½ï¿½æ¶¼Îªï¿½ï¿½
+		/// ï¿½ï¿½Ê±ï¿½ï¿½Å¹Ø±ÕºÍ·ï¿½ï¿½ï¿½trueï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½false
 		bool tryClose();
-		/// ÊÇ·ñÁ´½ÓÒÑ¾­¹Ø±Õ
+		/// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ø±ï¿½
 		virtual bool isClosed();
-		/// Ö»ÄÜÔÚÖ÷Ïß³Ìµ÷ÓÃ£¬»òÖ»ÄÜÓĞÎ¨Ò»Ò»¸öÏß³Ìµ÷ÓÃ
+		/// Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Î¨Ò»Ò»ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½
 		bool write(unsigned char* acBuff, unsigned int uiSize);
-		/// Ö»ÄÜÔÚÖ÷Ïß³Ìµ÷ÓÃ£¬»òÖ»ÄÜÓĞÎ¨Ò»Ò»¸öÏß³Ìµ÷ÓÃ
+		/// Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Î¨Ò»Ò»ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½
 		unsigned int read(unsigned char* acBuff, unsigned int uiBuffSize);
-		/// Ö»ÄÜÔÚÖ÷Ïß³Ìµ÷ÓÃ£¬»òÖ»ÄÜÓĞÎ¨Ò»Ò»¸öÏß³Ìµ÷ÓÃ
-		/// @param acBuff °üÆğÊ¼Î»ÖÃ
-		/// @param uiReadableSize ¿É¶ÁÄÚ´æ´óĞ¡
-		/// @return Èç¹ûreadPacketsBeginÒÑ¾­µ÷ÓÃÇÒreadPacketsEndÎ´Åä¶Ôµ÷ÓÃ·µ»Øfalse
+		/// Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Î¨Ò»Ò»ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½
+		/// @param acBuff ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+		/// @param uiReadableSize ï¿½É¶ï¿½ï¿½Ú´ï¿½ï¿½Ğ¡
+		/// @return ï¿½ï¿½ï¿½readPacketsBeginï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½readPacketsEndÎ´ï¿½ï¿½Ôµï¿½ï¿½Ã·ï¿½ï¿½ï¿½false
 		bool readPacketsBegin(unsigned char*& acBuff, unsigned int& uiReadableSize);
-		/// Ö»ÄÜÔÚÖ÷Ïß³Ìµ÷ÓÃ£¬»òÖ»ÄÜÓĞÎ¨Ò»Ò»¸öÏß³Ìµ÷ÓÃ
-		/// Ìá½»ÒÑ¾­´¦ÀíµÄ°ü´óĞ¡
+		/// Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½Ã£ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Î¨Ò»Ò»ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½
+		/// ï¿½á½»ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½ï¿½Ğ¡
 		void readPacketsEnd(unsigned int uiProcessedSize);
-		/// »ñÈ¡Á´½ÓID
+		/// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ID
 		ConnectionID getID();
-		/// ÔÚIOÏß³Ì·¢Éú´íÎóÊ±»áÖ±½ÓÇ¿ÖÆ¹Ø±ÕÁ´½Ó£¬²¢°Ñ´íÎóÂë·ÅÈëÒ»¸ömkErrorCodeVector
-		/// ¿ÉÒÔÍ¨¹ıÕâ¸öº¯ÊıÈ¡µÃËùÓĞÔÚIOÏß³Ì·¢ÉúµÄ´íÎó£»
-		/// ĞèÒª¸øÕâ¸ö´íÎóÂëÊı×é¼ÓËø£¬ÒòÎªÓĞ¿ÉÄÜ½ÓÊÕºÍ·¢ËÍÁ½¸öIOÊÂ¼şÔÚÁ½¸öÏß³ÌÍ¬Ê±·µ»Ø´íÎó
+		/// ï¿½ï¿½IOï¿½ß³Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö±ï¿½ï¿½Ç¿ï¿½Æ¹Ø±ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½mkErrorCodeVector
+		/// ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ß³Ì·ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+		/// ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ğ¿ï¿½ï¿½Ü½ï¿½ï¿½ÕºÍ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Í¬Ê±ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
 		/// @{
 		unsigned int getErrorCodesCount();
 		ErrorCodeVector getErrorCodes();
 		void pushErrorCode(const boost::system::error_code &kErrorCode);
 		void clearErrorCodes();
 		/// @}
-		/// ³¢ÊÔ½«Ã»ÓĞ·¢ËÍÍêµÄ¶îÍâ·¢ËÍ»º´æÖĞµÄÊı¾İ·¢ËÍ³öÈ¥
+		/// ï¿½ï¿½ï¿½Ô½ï¿½Ã»ï¿½Ğ·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½â·¢ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½İ·ï¿½ï¿½Í³ï¿½È¥
 		void trySendExtraSendBuff();
-	    /// »ñÈ¡µ±Ç°½ÓÊÕ»º³åÇøÖĞµÚÒ»¸ö°üµÄ´óĞ¡£¬Èç¹û·µ»ØÖµÎªfalseµÄÊ±ºò£¬±íÊ¾°ü´óĞ¡²»¿ÉÓÃ
-	    /// µ±½ÓÊÕ»º´æÖĞµÄÊı¾İ²»×ã±íÊ¾°ü´óĞ¡(sizeof(unsinged int))Ê±£¬·µ»Øfalse
+	    /// ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªfalseï¿½ï¿½Ê±ï¿½ò£¬±ï¿½Ê¾ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	    /// ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½İ²ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ğ¡(sizeof(unsinged int))Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½false
 	    bool currentReceivedPacketSize(unsigned int& uiPacketSize);
 
 		/// set public for callback reason, DONOT call other than itself
 		/// @{
 	public:
-		/// ·¢ËÍÍê³ÉºóIOÏß³Ì»á»Øµ÷Õâ¸öº¯Êı
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½IOï¿½ß³Ì»ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		virtual void handleSent(const boost::system::error_code& kErrorCode,
 			size_t uBytesTransferred) = 0;
-		/// ½ÓÊÕÍê³ÉºóIOÏß³Ì»á»Øµ÷Õâ¸öº¯Êı
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½IOï¿½ß³Ì»ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		virtual void handleRecvd(const boost::system::error_code& kErrorCode,
 			size_t uBytesTransferred) = 0;
-		/// asyncCloseµÄ»Øµ÷
+		/// asyncCloseï¿½Ä»Øµï¿½
 		virtual void handleClose(const boost::system::error_code& kErrorCode) = 0;
 
 		/// for ssl
@@ -115,64 +115,64 @@ namespace Network
 		/// @}
 
 	protected:
-		/// @param io_service boost::asio::io_serviceÒıÓÃ
-		/// @param pkParams Á¬½Ó²ÎÊı
+		/// @param io_service boost::asio::io_serviceï¿½ï¿½ï¿½ï¿½
+		/// @param pkParams ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½
 		Connection(boost::asio::io_service& io_service,
 			TcpNetworkParams* pkParams);
 		virtual ~Connection();
-		/// ·¢ÆğÒ»¸ö·¢ËÍÇëÇó£¬ËùÓĞIOÏß³ÌÖĞÍ¬Ê±Ö»»áÓĞÒ»¸öIOÏß³Ì·¢Æğ´Ëº¯Êıµ÷ÓÃ
-		/// Ö÷Ïß³Ì¼ì²émbSendIOReqRelayÎªfalseÊ±»á·¢Æğ´Ëº¯Êıµ÷ÓÃ
-		/// @param bCallAtMainThread ÊÇ·ñÔÚÖ÷Ïß³Ì·¢ÆğµÄµ÷ÓÃ
+		/// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ß³ï¿½ï¿½ï¿½Í¬Ê±Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½IOï¿½ß³Ì·ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		/// ï¿½ï¿½ï¿½ß³Ì¼ï¿½ï¿½mbSendIOReqRelayÎªfalseÊ±ï¿½á·¢ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		/// @param bCallAtMainThread ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì·ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
 		virtual void send(bool bCallAtMainThread) = 0;
-		/// ·¢ÆğÒ»¸ö½ÓÊÕÇëÇó£¬ËùÓĞIOÏß³ÌÖĞÍ¬Ê±Ö»»áÓĞÒ»¸öIOÏß³Ì·¢Æğ´Ëº¯Êıµ÷ÓÃ
-		/// Ö÷Ïß³Ì¼ì²émbRecvIOReqRelayÎªfalseÊ±»á·¢Æğ´Ëº¯Êıµ÷ÓÃ
-		/// @param bCallAtMainThread ÊÇ·ñÔÚÖ÷Ïß³Ì·¢ÆğµÄµ÷ÓÃ
+		/// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ß³ï¿½ï¿½ï¿½Í¬Ê±Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½IOï¿½ß³Ì·ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		/// ï¿½ï¿½ï¿½ß³Ì¼ï¿½ï¿½mbRecvIOReqRelayÎªfalseÊ±ï¿½á·¢ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		/// @param bCallAtMainThread ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì·ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
 		virtual void recv(bool bCallAtMainThread) = 0;
 
 		void assignID();
-		/// ±êÊ¶Á´½ÓĞèÒª±»¹Ø±Õ£¬±êÊ¶ºó½«²»½ÓÊÜĞ´Êı¾İ@see Connection::write
+		/// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ø±Õ£ï¿½ï¿½ï¿½Ê¶ï¿½ó½«²ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½@see Connection::write
 		void markShouldBeClosed();
-		/// ÅĞ¶ÏÊÇ·ñÒÑ¾­markShouldBeClosed()
+		/// ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½markShouldBeClosed()
 		bool shouldBeClosed();
-		/// ÅĞ¶ÏÊÇ·ñÒÑ¾­markShouldBeClosed()²¢ÇÒ½ÓÊÕºÍ·¢ËÍ»º´æ¶¼Îª¿Õ
+		/// ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½markShouldBeClosed()ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ÕºÍ·ï¿½ï¿½Í»ï¿½ï¿½æ¶¼Îªï¿½ï¿½
 		bool canBeClosed();
-		/// ÅĞ¶ÏÊÇ·ñÓĞÒÑ¾­½ÓÊÕµ«»¹Ã»´¦ÀíµÄÊı¾İ
+		/// ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		bool hasRecvedData();
-		/// ÅĞ¶ÏÊÇ·ñÓĞÒÑ¾­½ÓÊÕµ«»¹Ã»´¦ÀíµÄÍêÕûÊı¾İ°ü
+		/// ï¿½Ğ¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ°ï¿½
 		bool hasRecvedPacket();
 
-		/// ¼ì²éÊÇ·ñÓĞÃ»ÓĞ¼°Ê±·¢ËÍµÄÊı¾İ
+		/// ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ã»ï¿½Ğ¼ï¿½Ê±ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½
 		bool isDataInExtraSendBuff();
-		/// ½«²»ÄÜ¼°Ê±·¢ËÍµÄÊı¾İ·Åµ½¶îÍâµÄ·¢ËÍ»º³åÇø
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½Ê±ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½İ·Åµï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½
 		void pushToExtraSendBuff(unsigned char* pcBuff, unsigned int uiSize);
-		/// ½«¶îÍâ·¢ËÍ»º³åÇøÀïµÄÊı¾İĞ´µ½·¢ËÍ»º´æÖĞ
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½â·¢ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½
 		void writeExtraSendBuff();
-		/// ÉèÖÃsocketµÄkeep aliveÑ¡Ïî
+		/// ï¿½ï¿½ï¿½ï¿½socketï¿½ï¿½keep aliveÑ¡ï¿½ï¿½
 		bool setKeepAlive();
 
 	protected:
 		RingBuffer<unsigned char> *mpSendBuffer;
 		RingBuffer<unsigned char> *mpRecvBuffer;
-		ErrorCodeVector mkErrorCodeVector;        ///< »º´æËùÓĞÔÚIOÏß³Ì·¢ÉúµÄ´íÎóÂë
+		ErrorCodeVector mkErrorCodeVector;        ///< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOï¿½ß³Ì·ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½
 		boost::recursive_mutex mkErrorCodeVectorMutex;
 		
 		ConnectionID muID;
 		ConnectionPtr mpkNext;
 		ConnectionPtr mpkPrev;
-		bool volatile mbShouldBeClosed;           ///< ×¼±¸¹Ø±Õ£¬µÈ´ıÎ´Íê³ÉµÄÊı¾İÊÕ·¢Íê³É
-		bool volatile mbClosing;                  ///< ¿ªÊ¼¹Ø±Õ£¬ÊÕ·¢²»ÁËÊı¾İÁË
-		bool volatile mbClosed;                   ///< ÒÑ¾­¹Ø±Õ
-		bool mbNeedCallCloseCallback;             ///< ÊÇ·ñĞèÒªµ÷ÓÃÁ´½Ó¹Ø±ÕµÄ»Øµ÷
-		/// Connection::mbSendIOReqRelayºÍConnection::mbRecvIOReqRelay³ıÁË³õÊ¼»¯Ê±Îªfalse£¬
-		/// ÆäËüÊ±ºòÖ»ÓĞµ±IOÏß³ÌµÄIOÇëÇóÍ¶µİ½ÓÁ¦¶Ï¿ªÊ±£¬²Å»á±»ÖÃÎªfalse£»
-		/// IOÇëÇóÍ¶µİ½ÓÁ¦ÊÇÖ¸IOÇëÇó·µ»ØÊ±»á¼ÌĞø·¢ÆğÏàÍ¬µÄIOÇëÇó£¬Èç¹ûÒòÎª¸÷ÖÖÔ­Òò
-		/// Ã»ÓĞ¼ÌĞøÆğÆğÏàÍ¬µÄIOÇëÇó£¬ÕâÀï¾Í³ÆÖ®ÎªIOÇëÇóÍ¶µİ½ÓÁ¦¶Ï¿ª¡£
+		bool volatile mbShouldBeClosed;           ///< ×¼ï¿½ï¿½ï¿½Ø±Õ£ï¿½ï¿½È´ï¿½Î´ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½ï¿½
+		bool volatile mbClosing;                  ///< ï¿½ï¿½Ê¼ï¿½Ø±Õ£ï¿½ï¿½Õ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		bool volatile mbClosed;                   ///< ï¿½Ñ¾ï¿½ï¿½Ø±ï¿½
+		bool mbNeedCallCloseCallback;             ///< ï¿½Ç·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹Ø±ÕµÄ»Øµï¿½
+		/// Connection::mbSendIOReqRelayï¿½ï¿½Connection::mbRecvIOReqRelayï¿½ï¿½ï¿½Ë³ï¿½Ê¼ï¿½ï¿½Ê±Îªfalseï¿½ï¿½
+		/// ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö»ï¿½Ğµï¿½IOï¿½ß³Ìµï¿½IOï¿½ï¿½ï¿½ï¿½Í¶ï¿½İ½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ê±ï¿½ï¿½ï¿½Å»á±»ï¿½ï¿½Îªfalseï¿½ï¿½
+		/// IOï¿½ï¿½ï¿½ï¿½Í¶ï¿½İ½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸IOï¿½ï¿½ï¿½ó·µ»ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+		/// Ã»ï¿½Ğ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í³ï¿½Ö®ÎªIOï¿½ï¿½ï¿½ï¿½Í¶ï¿½İ½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½
 		/// @{
-		bool volatile mbSendIOReqRelay;           ///< ÊÇ·ñIO·¢ËÍÇëÇóÍ¶µİ½ÓÁ¦Õı³£
-		bool volatile mbRecvIOReqRelay;           ///< ÊÇ·ñIO½ÓÊÕÇëÇóÍ¶µİ½ÓÁ¦Õı³£
+		bool volatile mbSendIOReqRelay;           ///< ï¿½Ç·ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½İ½ï¿½ï¿½ï¿½ï¿½ï¿½
+		bool volatile mbRecvIOReqRelay;           ///< ï¿½Ç·ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½İ½ï¿½ï¿½ï¿½ï¿½ï¿½
 		/// @}
 		TcpNetworkParams* mpkTcpNetworkParams;
-		UCExSendBufferPool* mpkExtraSendBuffPool; ///< µ±·¢ËÍ»º³åÇøÒç³öÊ±ÇÒmbCloseOnBuffOverflowÎªfalseÊ±£¬·¢ËÍµÄÊı¾İÁÙÊ±´æÔÚ´Ë
+		UCExSendBufferPool* mpkExtraSendBuffPool; ///< ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½mbCloseOnBuffOverflowÎªfalseÊ±ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ú´ï¿½
 		bool mbServerSide;
 
 #ifdef _DEBUG
@@ -257,7 +257,7 @@ namespace Network
 	inline unsigned int Connection::getErrorCodesCount()
 	{
 		boost::recursive_mutex::scoped_lock kScopedLock(mkErrorCodeVectorMutex);
-		return mkErrorCodeVector.size();
+        return (unsigned int)mkErrorCodeVector.size();
 	}
 	inline Connection::ErrorCodeVector Connection::getErrorCodes()
 	{

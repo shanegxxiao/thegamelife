@@ -2,6 +2,7 @@
 #define __ConCallback_h__
 
 #include "Network/TcpNetwork.h"
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 class ConCallback
 {
@@ -26,7 +27,7 @@ private:
 	volatile long muiOnSendDataSize;
 	volatile long muiOnErrorCnt;
 
-	unsigned int muiStartTick;
+	boost::posix_time::ptime muiStartTick;
 
 	Network::TcpNetwork* mpkTcpNetwork;
 };

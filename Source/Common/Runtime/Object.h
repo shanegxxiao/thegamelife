@@ -2,8 +2,10 @@
 #define __Object_h__
 
 #include "RuntimeDefine.h"
-#include "ParamList.h"
 #include "ObjectSystem.h"
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 
 namespace Runtime
 {
@@ -27,7 +29,7 @@ namespace Runtime
 		unsigned int UnsubscribeRTMsg(unsigned int uiMessage, 
 			MsgFunc pFunc);
 
-		virtual bool Initialize(ParamList& kParamList);
+        virtual bool Initialize(boost::property_tree::ptree& kParamList);
 		virtual void Running();
 		virtual bool Shutdown();
 		

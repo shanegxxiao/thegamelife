@@ -5,7 +5,7 @@
 
 namespace Network
 {
-	const char* TcpErrorCategoryImpl::name() const
+	const char* TcpErrorCategoryImpl::name() const BOOST_SYSTEM_NOEXCEPT
 	{
 		return "NetworkDefine_TcpErrorCategoryImpl";
 	}

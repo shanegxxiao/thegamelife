@@ -9,11 +9,12 @@ namespace Runtime
 {
 	enum LogLevel
 	{
-		L_DEBUG = 0,
+		L_TRACE = 0,
+		L_DEBUG,
 		L_INFO,
 		L_WARNING,
 		L_ERROR,
-		L_FATALERROR,
+		L_FATAL,
 		L_LEVELNUM
 	};
 
@@ -55,7 +56,7 @@ namespace Runtime
 #endif //WIN32
 
 #define FW FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE
-#define FR FOREGROUND_RED
+#define FGR FOREGROUND_RED
 #define FG FOREGROUND_GREEN
 #define FB FOREGROUND_BLUE
 #define FY FOREGROUND_RED | FOREGROUND_GREEN
@@ -86,8 +87,8 @@ namespace Runtime
 #define BMI BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_INTENSITY 
 #define BNULL 0
 
-static char *gs_cLogColor[Runtime::L_LEVELNUM] = {"#ffffff", "#9d9dee", "#00ff00", "#ddaa00", "#ff0000"};
-static unsigned int gs_uiLogColor[Runtime::L_LEVELNUM] = {FW, FG, FY, FR, BR};
+static char *gs_cLogColor[Runtime::L_LEVELNUM] = { "#ffffff", "#ffffff", "#9d9dee", "#00ff00", "#ddaa00", "#ff0000" };
+static unsigned int gs_uiLogColor[Runtime::L_LEVELNUM] = { FW, BW, FG, FY, FGR, BR };
 
 #endif//#ifndef __LogSystemDefine_h__
 //END OF FILE

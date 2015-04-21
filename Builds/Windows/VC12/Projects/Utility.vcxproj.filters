@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{cf2099a1-a428-45ed-acdf-b8d0a27c8067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Xml">
+      <UniqueIdentifier>{cd2cc02b-bee1-4612-bb91-e0305640d1b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{bf33b45a-cad3-4653-9a6f-e63ae84ad3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{4493b522-ccd8-4310-88af-cddcdd0938bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FileSystem">
+      <UniqueIdentifier>{fe3e6ab7-4506-4289-a6fc-af27079df77e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Trivial">
+      <UniqueIdentifier>{7f162de6-a12f-4a01-be9d-6a6cee177b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Serialization">
+      <UniqueIdentifier>{13392fc5-e1e2-41e6-914b-7111120bedc7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\UtilityPCH.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\pugixml.cpp">
+      <Filter>Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\tinystr.cpp">
+      <Filter>Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\tinyxml.cpp">
+      <Filter>Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\tinyxmlerror.cpp">
+      <Filter>Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\tinyxmlparser.cpp">
+      <Filter>Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\StringHelper.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\Debug.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\FrameRate.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\FileSystemHelper.cpp">
+      <Filter>FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\Encode.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\SizeHeadedPacketAssembler.cpp">
+      <Filter>Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Source\Common\Utility\Typedef.cpp">
+      <Filter>Trivial</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\UtilityDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\UtilityPCH.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\targetver.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\pugiconfig.hpp">
+      <Filter>Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\pugixml.hpp">
+      <Filter>Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\tinystr.h">
+      <Filter>Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\tinyxml.h">
+      <Filter>Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\StringHelper.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\Utility.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\Debug.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\FrameRate.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\MemoryLeakChecker.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\FileSystemHelper.h">
+      <Filter>FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\Encode.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\WindowsIncludes.h">
+      <Filter>Trivial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\WinSock2SafelyInclude.h">
+      <Filter>Trivial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\Format.hpp">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\RWMutexStreambuf.hpp">
+      <Filter>Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\SizeFixedStreambuf.hpp">
+      <Filter>Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\SerializableStream.hpp">
+      <Filter>Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\SizeHeadedPacketAssembler.h">
+      <Filter>Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Source\Common\Utility\Typedef.h">
+      <Filter>Trivial</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

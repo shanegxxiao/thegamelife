@@ -1,15 +1,9 @@
 #include "UnitTestPCH.h"
 #include <boost/test/unit_test.hpp>
-#include "../../Source/Common/Network/DownloadMgr.h"
+#include "Network/DownloadMgr.h"
 #include <boost/thread.hpp>
 #include <boost/bind.hpp>
-
-
-#ifdef _DEBUG
-#pragma comment(lib, "Network_Debug.lib")
-#else
-#pragma comment(lib, "Network_Release.lib")
-#endif
+#include <boost/asio.hpp>
 
 BOOST_AUTO_TEST_SUITE(DownloadTestSuite)
 

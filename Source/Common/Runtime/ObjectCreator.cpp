@@ -1,10 +1,7 @@
 #include "RuntimePCH.h"
 #include "ObjectCreator.h"
 #include "Utility/UtilityDefine.h"
-#ifdef WIN32
-#include <Windows.h>
-#include <atlconv.h>
-#endif // WIN32
+
 namespace Runtime
 {
 	unsigned long LHashChars(const char *c) 

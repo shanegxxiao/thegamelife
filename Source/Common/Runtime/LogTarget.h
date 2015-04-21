@@ -13,10 +13,12 @@ namespace Runtime
 
 		virtual bool Initialize();
 		virtual void Running();
-		virtual bool Shutdown();
-		virtual void SetLogLevel(LogLevel eLogLevel);
-		virtual LogLevel GetLogLevel();
-		virtual void WriteLog(LogLevel eLogLevel, char *pcLogInfo) = 0;
+        virtual bool Shutdown();
+		virtual void WriteLog(LogLevel eLogLevel, std::string msg) = 0;
+        virtual void WriteLog(LogLevel eLogLevel, std::wstring msg) = 0;
+
+        virtual void SetLogLevel(LogLevel eLogLevel);
+        virtual LogLevel GetLogLevel();
 
 		void UseSelfLogLevelSetting();
 		bool IsUseSelfLogLevelSetting();

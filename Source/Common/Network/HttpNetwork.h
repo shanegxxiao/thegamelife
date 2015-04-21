@@ -49,8 +49,10 @@ namespace Network
 		void bindRequestHandler(RequestHandler kHandler);
 		/// 用户通过回调函数获得的response智能指针只能在主线程释放
 		void bindResponeHandler(ResponeHandler kHandler);
-		void bindClientErrorHandler(ClientErrorHandler kErrorHandler);
-		void bindServerErrorHandler(ServerErrorHandler kErrorHandler);
+        /// handle client side error occurred while sending request or receiving respond
+        void bindClientErrorHandler(ClientErrorHandler kErrorHandler);
+        /// handle server side error occurred while receiving request or sending respond
+        void bindServerErrorHandler(ServerErrorHandler kErrorHandler);
 		void bindResponeSentHandler(ResponeSentHandler kResponeSentHandler);
 
 		void sendRequest(HttpRequestPtr spRequest);

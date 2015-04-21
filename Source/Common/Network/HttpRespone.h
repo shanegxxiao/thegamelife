@@ -35,7 +35,7 @@ namespace Network
 		std::string content;
 
 	private:
-		void setRemoteIP(std::string& strRemoteIP);
+		void setRemoteIP(std::string strRemoteIP);
 		void setRequest(HttpRequestPtr spRequest);
 		void send();
 
@@ -61,7 +61,7 @@ namespace Network
 	{
 		originalRequestPtr = spRequest;
 	}
-	inline void HttpRespone::setRemoteIP(std::string& strRemoteIP)
+	inline void HttpRespone::setRemoteIP(std::string strRemoteIP)
 	{
 		mstrRemoteIP = strRemoteIP;
 	}

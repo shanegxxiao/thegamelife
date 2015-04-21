@@ -1,6 +1,7 @@
 #include "UtilityPCH.h"
 #include "FileSystemHelper.h"
 #include "UtilityDefine.h"
+#include "Encode.h"
 
 #ifdef WIN32
 #include <Windows.h>
@@ -9,13 +10,18 @@
 #include <mmsystem.h>
 #include <io.h>
 #include <Shlwapi.h>
+#else
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #endif // WIN32
 
 namespace Utility
 {
 	namespace FileSystemHelper
 	{
-		const std::string FileSystemHelper::GetModulePath()
+		const std::string GetModulePath()
 		{
 #ifdef WIN32
 			USES_CONVERSION;
@@ -23,19 +29,96 @@ namespace Utility
 			GetModuleFileName(NULL, acBuff, UTILITY_MAX_PATH);
 
 			std::string strTmp = W2A(acBuff);
-			unsigned int uiPos = strTmp.find_last_of("\\");
+            unsigned int uiPos = (unsigned int)strTmp.find_last_of("\\");
 			std::string strResult = strTmp.substr(0, uiPos);
 			return strResult;
 #else
-			boost::filesystem::path full_path(boost::filesystem::current_path());
-			return full_path.string();
+			return boost::filesystem::initial_path<boost::filesystem::path>().string();
 #endif // WIN32
 
 		}
-		bool FileSystemHelper::EnsurePathValid(const std::string& strPath)
+
+#ifndef WIN32
+		int GetModulePath(std::string& strPath)
+		{
+			int ret = -1;
+			char sLine[1024] = { 0 };
+			void* pSymbol = (void*)"";
+			FILE *fp;
+			char *pPath;
+
+			fp = fopen ("/proc/self/maps", "r");
+			if ( fp != NULL )
+			{
+				while (!feof (fp))
+				{
+					unsigned long start, end;
+
+					if ( !fgets (sLine, sizeof (sLine), fp))
+					continue;
+					if ( !strstr (sLine, " r-xp ") || !strchr (sLine, '/'))
+					continue;
+
+					sscanf (sLine, "%lx-%lx ", &start, &end);
+					if (pSymbol >= (void *) start && pSymbol < (void *) end)
+					{
+						char *tmp;
+						size_t len;
+
+						/* Extract the filename; it is always an absolute path */
+						pPath = strchr (sLine, '/');
+
+						/* Get rid of the newline */
+						tmp = strrchr (pPath, '\n');
+						if (tmp) *tmp = 0;
+
+						/* Get rid of "(deleted)" */
+						//len = strlen (pPath);
+						//if (len > 10 && strcmp (pPath + len - 10, " (deleted)") == 0)
+						//{
+						// tmp = pPath + len - 10;
+						// *tmp = 0;
+						//}
+						ret = 0;
+						strPath = pPath;
+					}
+				}
+				fclose (fp);
+
+			}
+			return ret;
+		}
+#endif//WIN32
+
+		const std::wstring GetModuleNameW()
+		{
+#ifdef WIN32
+			USES_CONVERSION;
+			TCHAR acBuff[UTILITY_MAX_PATH];
+			GetModuleFileName(NULL, acBuff, UTILITY_MAX_PATH);
+			return std::wstring(acBuff);
+#else
+			std::string strResult;
+			if (!GetModulePath(strResult))
+			{
+				unsigned int uiPos = (unsigned int)strResult.find_last_of("/");
+				if (uiPos != std::string::npos && uiPos < strResult.length())
+				{
+					strResult = strResult.substr(uiPos + 1, strResult.length() - uiPos - 1);
+				}
+			}
+			return Utility::a2w(strResult);
+#endif // WIN32
+
+		}
+        const std::string GetModuleNameA()
+        {
+            return Utility::w2a(std::wstring(GetModuleNameW()));
+        }
+		bool EnsurePathValid(const std::string& strPath)
 		{
 			std::string strPathTmp = strPath;
-			unsigned int uiPos = strPathTmp.find('\\', 0);
+            unsigned int uiPos = (unsigned int)strPathTmp.find('\\', 0);
 			while (uiPos != std::string::npos)
 			{
 				std::string strPath = strPathTmp.substr(0, uiPos);
@@ -46,11 +129,11 @@ namespace Utility
 						return false;
 					}
 				}
-				uiPos = strPathTmp.find_first_of('\\', uiPos + 1);
+                uiPos = (unsigned int)strPathTmp.find_first_of('\\', uiPos + 1);
 			}
 			return true;
 		}
-		bool FileSystemHelper::CopyFileWrap(const std::string& strSrcPath,
+		bool CopyFileWrap(const std::string& strSrcPath,
 			const std::string& strDestPath,
 			bool bFailedIfExist)
 		{
@@ -64,7 +147,7 @@ namespace Utility
 			}
 			return true;
 		}
-		bool FileSystemHelper::DeleteFileWrap(const std::string& strPath)
+		bool DeleteFileWrap(const std::string& strPath)
 		{
 			if (!boost::filesystem::exists(strPath))
 			{
@@ -72,7 +155,7 @@ namespace Utility
 			}
 			return boost::filesystem::remove(strPath.c_str());
 		}
-		bool FileSystemHelper::DeleteDir(const std::string& strDirectory)
+		bool DeleteDir(const std::string& strDirectory)
 		{
 			if (!boost::filesystem::is_directory(strDirectory))
 			{
@@ -87,7 +170,7 @@ namespace Utility
 			return true;
 		}
 
-		const std::vector<boost::filesystem::path>& FileSystemHelper::ScanDirectory(const char *path,
+		const std::vector<boost::filesystem::path>& ScanDirectory(const char *path,
 			const char *pattern, int recurseDepth, std::vector < boost::filesystem::path >
 			&fileVector/* = *(new vector<boost::filesystem::path>())*/)
 		{
@@ -98,7 +181,7 @@ namespace Utility
 			{
 				return ret;
 			}
-			/// ÎÞ²Î¹¹Ôìº¯ÊýÊÇ×îºóÄÇ¸öiteratorµÄvalue Õª³­ÈçÏÂ
+			/// ï¿½Þ²Î¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½iteratorï¿½ï¿½value Õªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			/// If the end of the directory elements is reached, the iterator becomes equal 
 			/// to the end iterator value. The constructor directory_iterator() with no arguments 
 			/// always constructs an end iterator object, which is the only legitimate iterator to 

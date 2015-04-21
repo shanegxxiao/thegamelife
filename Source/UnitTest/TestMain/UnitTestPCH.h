@@ -18,9 +18,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <boost/asio.hpp>
-#include <boost/filesystem.hpp>
-
 #include "TestMain.h"
 
 #include "Runtime/DynCreate.h"

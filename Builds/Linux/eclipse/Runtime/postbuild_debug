@@ -1,0 +1,18 @@
+pwd
+if [ ! -d ../../../../../Library/Runtime ]
+then 
+mkdir ../../../../../Library/Runtime
+fi
+
+if [ ! -d ../../../../../Library/Runtime/Lib ]
+then 
+mkdir ../../../../../Library/Runtime/Lib
+fi
+
+if [ ! -d ../../../../../Library/Runtime/Runtime ]
+then 
+mkdir ../../../../../Library/Runtime/Runtime
+fi
+
+cp libRuntime.a ../../../../../Library/Runtime/Lib/libRuntime.a
+cp ../src/*.h ../../../../../Library/Runtime/Runtime/

@@ -7,23 +7,23 @@
 
 namespace Network
 {
-	/// TCP´íÎóÂë¶¨Òå
+	/// TCPï¿½ï¿½ï¿½ï¿½ï¿½ë¶¨ï¿½ï¿½
 	/// @{
 	enum TcpError
 	{
-		recv_buff_overflow = 1,             ///< ½ÓÊÕ»º³åÇøÒç³ö
-		send_buff_overflow = 2,             ///< ·¢ËÍ»º³åÇøÒç³ö
-		accepted_but_failed_when_open = 3,  ///< ÒÑ¾­½ÓÊÜµÄÁ´½ÓÔÚ´ò¿ªµÄÊ±ºò³ö´í£¬ÓÐ¿ÉÄÜÊÇ¿Í»§¶ËÒÑ¾­¶Ï¿ª
-		error_packet_size = 4,              ///< Êý¾Ý°ü´óÐ¡´íÎó
-		listen_fail = 5,                    ///< ¶Ë¿Ú¼àÌýÊ§°Ü
-		set_keep_alive_option_failed = 6,   ///< ÉèÖÃkeep aliveÑ¡Ïî²ÎÊýÊ§°Ü
+		recv_buff_overflow = 1,             ///< ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		send_buff_overflow = 2,             ///< ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		accepted_but_failed_when_open = 3,  ///< ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ò¿ªµï¿½Ê±ï¿½ï¿½ï¿½ï¿½?ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½Ç¿Í»ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ï¿ï¿½
+		error_packet_size = 4,              ///< ï¿½ï¿½Ý°ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+		listen_fail = 5,                    ///< ï¿½Ë¿Ú¼ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+		set_keep_alive_option_failed = 6,   ///< ï¿½ï¿½ï¿½ï¿½keep aliveÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	};
 
 	class TcpErrorCategoryImpl
 		: public boost::system::error_category
 	{
 	public:
-		virtual const char* name() const;
+		virtual const char* name() const BOOST_SYSTEM_NOEXCEPT;
 		virtual std::string message(int ev) const;
 	};
 

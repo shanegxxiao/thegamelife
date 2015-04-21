@@ -1,0 +1,18 @@
+pwd
+if [ ! -d ../../../../../Library/Database ]
+then 
+mkdir ../../../../../Library/Database
+fi
+
+if [ ! -d ../../../../../Library/Database/Lib ]
+then 
+mkdir ../../../../../Library/Database/Lib
+fi
+
+if [ ! -d ../../../../../Library/Database/Database ]
+then 
+mkdir ../../../../../Library/Database/Database
+fi
+
+cp libDatabase.a ../../../../../Library/Database/Lib/libDatabase.a
+cp ../src/*.h ../../../../../Library/Database/Database/

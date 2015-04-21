@@ -35,6 +35,8 @@ namespace Network
 			request_stream << HttpMiscStrings::crlf;
 		}
 		request_stream << HttpMiscStrings::crlf;
+		request_stream << content;
+
 		return std::string(boost::asio::buffers_begin(mstrHttpRequest.data()),
 			boost::asio::buffers_begin(mstrHttpRequest.data()) + mstrHttpRequest.size());
 	}

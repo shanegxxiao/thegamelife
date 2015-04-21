@@ -160,7 +160,7 @@ namespace Network
 		pkConnection->assignID();
 		return pkConnection;
 	}
-	void IdealConnectionContainer::put(ConnectionPtr& pkConnection)
+	void IdealConnectionContainer::put(ConnectionPtr pkConnection)
 	{
 		if (deleteConnection(pkConnection))
 		{

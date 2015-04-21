@@ -3,6 +3,10 @@
 	<name>UnitTest</name>
 	<comment></comment>
 	<projects>
+		<project>Database</project>
+		<project>Network</project>
+		<project>Runtime</project>
+		<project>Utility</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

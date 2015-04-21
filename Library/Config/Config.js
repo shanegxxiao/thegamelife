@@ -1,47 +1,42 @@
 fs = require('fs');
 rimraf = require('rimraf');
-var rd_folders = ['../Boost',
-'../OpenSSL',
-'../Otl',
-'../Vld',
-'../Network',
-'../Runtime',
-'../Database',
-'../Utility'];
-for (var i = 0; i < rd_folders.length; ++i)
-{
-    if (fs.existsSync(rd_folders[i]))
-    {
-        rimraf.sync(rd_folders[i]);
-    }
-}
-
-var md_folders = ['../Network',
-'../Network/Network',
-'../Network/Lib',
-'../Runtime',
-'../Runtime/Runtime',
-'../Runtime/Lib',
-'../Database',
-'../Database/Database',
-'../Database/Lib',
-'../Utility',
-'../Utility/Utility',
-'../Utility/Lib'];
-for (var i = 0; i < md_folders.length; ++i)
-{
-    if (!fs.existsSync(md_folders[i]))
-    {
-        fs.mkdirSync(md_folders[i]);
-    }
-}
-
-var ex_files = ['../Boost_1_57_0.7z',
-'../OpenSSL.7z',
-'../Otl.7z',
-'../Vld.7z'];
 command = require('./Spawning');
-for (var i = 0; i < ex_files.length; ++i)
+
+var args = process.argv.splice(2);
+var configObj = JSON.parse(fs.readFileSync(args[0]));
+var folder2rm = configObj.folder2rm;
+var folder2mk = configObj.folder2mk;
+var file2extract = configObj.file2extract;
+
+for (var i = 0; i < folder2rm.length; ++i)
 {
-    command.execute('7z', ['x', ex_files[i], '-o../']);
+    if (fs.existsSync(folder2rm[i]))
+    {
+        rimraf.sync(folder2rm[i]);
+    }
+}
+
+for (var i = 0; i < folder2mk.length; ++i)
+{
+    if (!fs.existsSync(folder2mk[i]))
+    {
+        fs.mkdirSync(folder2mk[i]);
+    }
+}
+
+for (var i = 0; i < file2extract.length; ++i)
+{
+    var suffix = file2extract[i].substring(file2extract[i].lastIndexOf('.'), file2extract[i].length).toLowerCase();
+    if (suffix === '.7z')
+    {
+        command.execute('7za', ['x', file2extract[i], '-o../']);
+    }
+    else if (suffix === '.bz2')
+    {
+        command.execute('tar', ['zxvf', file2extract[i], '-C../']);
+    }
+    else
+    {
+        console.log("ERROR! UNKNOWN FILE FORMAT!");
+    }
 }

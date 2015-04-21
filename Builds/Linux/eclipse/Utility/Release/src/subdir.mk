@@ -5,9 +5,12 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../src/Debug.cpp \
+../src/Encode.cpp \
 ../src/FileSystemHelper.cpp \
 ../src/FrameRate.cpp \
+../src/SizeHeadedPacketAssembler.cpp \
 ../src/StringHelper.cpp \
+../src/Typedef.cpp \
 ../src/UtilityPCH.cpp \
 ../src/pugixml.cpp \
 ../src/tinystr.cpp \
@@ -17,9 +20,12 @@ CPP_SRCS += \
 
 OBJS += \
 ./src/Debug.o \
+./src/Encode.o \
 ./src/FileSystemHelper.o \
 ./src/FrameRate.o \
+./src/SizeHeadedPacketAssembler.o \
 ./src/StringHelper.o \
+./src/Typedef.o \
 ./src/UtilityPCH.o \
 ./src/pugixml.o \
 ./src/tinystr.o \
@@ -29,9 +35,12 @@ OBJS += \
 
 CPP_DEPS += \
 ./src/Debug.d \
+./src/Encode.d \
 ./src/FileSystemHelper.d \
 ./src/FrameRate.d \
+./src/SizeHeadedPacketAssembler.d \
 ./src/StringHelper.d \
+./src/Typedef.d \
 ./src/UtilityPCH.d \
 ./src/pugixml.d \
 ./src/tinystr.d \
@@ -44,7 +53,7 @@ CPP_DEPS += \
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I../../../../../Library/Boost -I../../../../../Library/OpenSSL -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	g++ -std=c++0x -I../../../../../Library/Boost -I../../../../../Library/OpenSSL -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

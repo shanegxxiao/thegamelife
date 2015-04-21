@@ -1,0 +1,14 @@
+pwd
+g++ -D GCC_BUILD -D NDEBUG -D _LIB \
+-I"../../../../../Library/Boost" \
+-I"../../../../../Library/OpenSSL" \
+-I"../../../../../Library/Otl" \
+-I"../../../../../Library/hiredis" \
+-I"../../../../../Library/zlib" \
+-I"../../../../../Library/Utility" \
+-I"../../../../../Library/Runtime" \
+-I"../../../../../Library/Network" \
+-I"../../../../../Library/Database" \
+-I"../../../../../Source/UnitTest/ServerTest" \
+../src/ServerTestPCH.h
+

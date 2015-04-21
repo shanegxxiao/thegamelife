@@ -47,10 +47,7 @@ void checkRecvDataA2Z(char *acBuff, unsigned int uiSize)
 	{
 		if (acBuff[ui + 1] - acBuff[ui] != 1 && acBuff[ui + 1] - acBuff[ui] != -25)
 		{
-			__asm
-			{
-				int 3;
-			}
+			BOOST_ASSERT(false);
 		}
 	}
 }
@@ -121,7 +118,12 @@ void asyncSendMsgThreadFunc(Network::RingBuffer<char>* pkRingBuff, unsigned int 
 				}
 			}
 			boost::this_thread::sleep(boost::posix_time::milliseconds(uiPeriodMS));
+#ifdef WIN32
 			memcpy_s(pDestBuff, uiDestWritableBuffSize, pBuff, uiSize);
+#else
+			memcpy(pDestBuff, pBuff, uiSize);
+#endif//WIN32
+
 			pkRingBuff->writeEnd(uiSize);
 			guiTotalSend += uiSize;
 			delete[] pBuff;
@@ -161,7 +163,11 @@ void asyncRecvMsgThreadFunc(Network::RingBuffer<char>* pkRingBuff, unsigned int 
 				continue;
 			}
 			boost::this_thread::sleep(boost::posix_time::milliseconds(uiPeriodMS));
+#ifdef WIN32
 			memcpy_s(acBuff, gcuiBuffSize + 1, pBuff, uiReadableSize);
+#else
+			memcpy(acBuff, pBuff, uiReadableSize);
+#endif//WIN32
 			pkRingBuff->readEnd(uiReadableSize);
 			guiTotalRecv += uiReadableSize;
 			acBuff[uiReadableSize] = '\0';
@@ -205,7 +211,11 @@ void syncSendPacketThreadFunc(Network::RingBuffer<char>* pkRingBuff, unsigned in
 				++cChar;
 			}
 		}
+#ifdef WIN32
 		memcpy_s(kPacket.acBuff, gcuiMaxPacketDataSize, pBuff, uiSize);
+#else
+		memcpy(kPacket.acBuff, pBuff, uiSize);
+#endif//WIN32
 		kPacket.uiPacketSize = uiSize + 4;
 		while (!pkRingBuff->writeImmediately((char*)(&kPacket), kPacket.uiPacketSize));
 		boost::this_thread::sleep(boost::posix_time::milliseconds(uiPeriodMS));
@@ -231,7 +241,11 @@ void asyncRecvPacketThreadFunc(Network::RingBuffer<char>* pkRingBuff, unsigned i
 			}
 			boost::this_thread::sleep(boost::posix_time::milliseconds(uiPeriodMS));
 			unsigned int uiPacketSize = *((unsigned int*)pBuff);
+#ifdef WIN32
 			memcpy_s(&kPacket, gcuiMaxPacketSize, pBuff, uiPacketSize);
+#else
+			memcpy(&kPacket, pBuff, uiPacketSize);
+#endif//WIN32
 			pkRingBuff->readPacketEnd(uiPacketSize);
 			guiTotalRecv += uiPacketSize;
 			kPacket.acBuff[uiPacketSize - 4] = '\0';
@@ -251,7 +265,7 @@ BOOST_FIXTURE_TEST_CASE(RingBufferTest0, RingBufferTestCaseFixture)
 
 	boost::thread_group kThreadGroup;
 
-	/// Í¬²½·¢ËÍÍ¬²½½ÓÊÕ
+	/// Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	kThreadGroup.create_thread(boost::bind(&syncSendMsgThreadFunc, &gkRingBuff, kRandom()));
 	kThreadGroup.create_thread(boost::bind(&syncRecvMsgThreadFunc, &gkRingBuff, kRandom()));
 
@@ -270,7 +284,7 @@ BOOST_FIXTURE_TEST_CASE(RingBufferTest1, RingBufferTestCaseFixture)
 
 	boost::thread_group kThreadGroup;
 
-	/// Òì²½·¢ËÍÒì²½½ÓÊÕ
+	/// ï¿½ì²½ï¿½ï¿½ï¿½ï¿½ï¿½ì²½ï¿½ï¿½ï¿½ï¿½
 	kThreadGroup.create_thread(boost::bind(&asyncSendMsgThreadFunc, &gkRingBuff, kRandom()));
 	kThreadGroup.create_thread(boost::bind(&asyncRecvMsgThreadFunc, &gkRingBuff, kRandom()));
 
@@ -289,7 +303,7 @@ BOOST_FIXTURE_TEST_CASE(RingBufferTest2, RingBufferTestCaseFixture)
 
 	boost::thread_group kThreadGroup;
 
-	/// Ä£Äâ½ÓÊÕ»º³åÇø²âÊÔ
+	/// Ä£ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	kThreadGroup.create_thread(boost::bind(&asyncSendMsgThreadFunc, &gkRingBuff, kRandom()));
 	kThreadGroup.create_thread(boost::bind(&syncRecvMsgThreadFunc, &gkRingBuff, kRandom()));
 
@@ -306,7 +320,7 @@ BOOST_FIXTURE_TEST_CASE(RingBufferTest3, RingBufferTestCaseFixture)
 
 	boost::thread_group kThreadGroup;
 
-	/// Ä£Äâ·¢ËÍ»º³åÇø²âÊÔ
+	/// Ä£ï¿½â·¢ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	kThreadGroup.create_thread(boost::bind(&syncSendMsgThreadFunc, &gkRingBuff, kRandom()));
 	kThreadGroup.create_thread(boost::bind(&asyncRecvMsgThreadFunc, &gkRingBuff, kRandom()));
 
@@ -323,7 +337,7 @@ BOOST_FIXTURE_TEST_CASE(RingBufferTest4, RingBufferTestCaseFixture)
 
 	boost::thread_group kThreadGroup;
 
-	/// Ä£Äâ°ü´¦Àí²âÊÔ
+	/// Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	kThreadGroup.create_thread(boost::bind(&syncSendPacketThreadFunc, &gkRingBuff, kRandom()));
 	kThreadGroup.create_thread(boost::bind(&asyncRecvPacketThreadFunc, &gkRingBuff, kRandom()));
 
@@ -342,7 +356,11 @@ BOOST_FIXTURE_TEST_CASE(RingBufferAsyncOp, RingBufferTestCaseFixture)
 		unsigned int uiWritableSize = 0;
 		if (gkRingBuff.writeBegin(pcBuff, uiWritableSize) && uiWritableSize >= gcuiMaxPacketSize)
 		{
+#ifdef WIN32
 			memcpy_s(pcBuff, uiWritableSize, &kPacket, gcuiMaxPacketSize);
+#else
+			memcpy(pcBuff, &kPacket, gcuiMaxPacketSize);
+#endif//WIN32
 			gkRingBuff.writeEnd(gcuiMaxPacketSize);
 		}
 		else
@@ -370,7 +388,11 @@ BOOST_FIXTURE_TEST_CASE(RingBufferAsyncOp, RingBufferTestCaseFixture)
 	unsigned int uiWritableSize = 0;
 	if (gkRingBuff.writeBegin(pcBuff, uiWritableSize) && uiWritableSize >= gcuiMaxPacketSize)
 	{
+#ifdef WIN32
 		memcpy_s(pcBuff, uiWritableSize, &kPacket, gcuiMaxPacketSize);
+#else
+		memcpy(pcBuff, &kPacket, gcuiMaxPacketSize);
+#endif//WIN32
 		gkRingBuff.writeEnd(gcuiMaxPacketSize);
 	}
 	else

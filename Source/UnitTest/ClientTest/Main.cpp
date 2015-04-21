@@ -4,57 +4,51 @@
 #include <iostream>
 #ifdef WIN32
 //#include <vld/vld.h>
+#include <tchar.h>
+#include <atlconv.h>
+#include <MMSystem.h>
+#pragma comment(lib, "Winmm.lib")
 #endif // WIN32
 #include "boost/thread.hpp"
 #include "boost/bind.hpp"
 #include "boost/random.hpp"
 #include "ConCallback.h"
 #include "../TestMain/TestCommonDefine.h"
-#include <tchar.h>
-#include <atlconv.h>
 
-#include <MMSystem.h>
-#pragma comment(lib, "Winmm.lib")
-
-#ifdef _DEBUG
-#pragma comment(lib, "../../../../Library/Network/Lib/Network_Debug.lib")
-#else
-#pragma comment(lib, "../../../../Library/Network/Lib/Network_Release.lib")
-#endif // _DEBUG
-
-BOOL g_bKeepRunningFlag = 1;
+bool g_bKeepRunningFlag = true;
 Network::TcpNetwork kTcpNetwork;
 
+#ifdef WIN32
 BOOL WINAPI ConsoleHandler(DWORD msgType)
 {
 	if (msgType == CTRL_C_EVENT)
 	{
 		printf("Ctrl-C!\n");
-		g_bKeepRunningFlag = 0;
+		g_bKeepRunningFlag = false;
 		return TRUE;
 	}
 	else if (msgType == CTRL_CLOSE_EVENT)
 	{
 		printf("Close console window!\n");
-		g_bKeepRunningFlag = 0;
+		g_bKeepRunningFlag = false;
 		/// Note: The system gives you very limited time to exit in this condition
 		return TRUE;
 	}
 
 	return FALSE;
 }
-
+#endif//win32
 void sendMsgOnceFunc()
 {
 	while (g_bKeepRunningFlag)
 	{
 		//boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
 		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
-		while (uID == INVALID_CONNECTION_ID)
+		while (uID == Network::INVALID_CONNECTION_ID)
 		{
 			uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		}
-		if (uID != INVALID_CONNECTION_ID)
+		if (uID != Network::INVALID_CONNECTION_ID)
 		{
 			std::cout << "sendMsgOnceFunc connected, ID = " << uID << std::endl;
 			char acBuff[] = "sendMsgOnceFunc hello world.\n";
@@ -74,10 +68,10 @@ void sendMsgRepeatFunc()
 		{
 			break;
 		}
-		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
-		while (uID == INVALID_CONNECTION_ID)
+		Network::ConnectionID uID = kTcpNetwork.connect("127.0.0.1", 7890);
+		while (uID == Network::INVALID_CONNECTION_ID)
 		{
-			uID = kTcpNetwork.connect("192.168.1.201", 7890);
+			uID = kTcpNetwork.connect("127.0.0.1", 7890);
 		}
 		kConnectionIDVec.push_back(uID);
 	}
@@ -130,11 +124,11 @@ void sendPacketOnceFunc()
 	{
 		//boost::this_thread::sleep(boost::posix_time::milliseconds(1000));
 		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
-		while (uID == INVALID_CONNECTION_ID)
+		while (uID == Network::INVALID_CONNECTION_ID)
 		{
 			uID = kTcpNetwork.connect("192.168.1.201", 7890);
 		}
-		if (uID != INVALID_CONNECTION_ID)
+		if (uID != Network::INVALID_CONNECTION_ID)
 		{
 			std::cout << "sendPacketOnceFunc connected, ID = " << uID << std::endl;
 			TestCommonDefine::Packet kPacket;
@@ -183,7 +177,7 @@ void sendPacketRepeatFunc()
 		//boost::this_thread::sleep(boost::posix_time::milliseconds(50));
 
 		Network::ConnectionID uID = kTcpNetwork.connect("192.168.1.201", 7890);
-		while (uID == INVALID_CONNECTION_ID)
+		while (uID == Network::INVALID_CONNECTION_ID)
 		{
 			uID = kTcpNetwork.connect("192.168.1.201", 7890);
 			if (!g_bKeepRunningFlag)
@@ -220,7 +214,7 @@ void sendPacketRepeatFunc()
 
 		for (unsigned int ui = 0; ui < kConnectionIDVec.size(); ++ui)
 		{
-			unsigned int uiBeginTick = timeGetTime();
+			boost::posix_time::ptime uiBeginTick = boost::posix_time::microsec_clock::local_time();
 			unsigned int uiTotalPacketCnt = 0;
 			unsigned int uiDataSizeCnt = 0;
 			unsigned int uiFrameRate = 0;
@@ -235,12 +229,13 @@ void sendPacketRepeatFunc()
 				uiDataSizeCnt += kPacket.uiPacketSize;
 				++uiFrameRate;
 
-				if (timeGetTime() - uiBeginTick > 1000)
+				boost::posix_time::time_duration uiRunTick = boost::posix_time::microsec_clock::local_time() - uiBeginTick;
+				if (uiRunTick.seconds() > 1)
 				{
 					std::cout <<uiFrameRate << " frames " << kConnectionIDVec[ui] << " sent data size " << uiDataSizeCnt << std::endl;
 					uiDataSizeCnt = 0;
 					uiFrameRate = 0;
-					uiBeginTick = timeGetTime();
+					uiBeginTick = boost::posix_time::microsec_clock::local_time();
 				}
 
 				++uiTotalPacketCnt;
@@ -254,17 +249,18 @@ void sendPacketRepeatFunc()
 	}
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 	Utility::MemoryLeakChecker kMemoryLeakChecker;
+#ifdef WIN32
 	SetConsoleCtrlHandler(ConsoleHandler, TRUE);
+#endif//WIN32
 
 	char* pcSelfAddress = "127.0.0.1";
 	char* pcAddress = pcSelfAddress;
 	if (argc > 1)
 	{
-		USES_CONVERSION;
-		pcAddress = T2A(argv[1]);
+		pcAddress = argv[1];
 	}
 	boost::timer::cpu_timer kTimer;
 	Utility::FrameRate kFrameRate;
@@ -298,6 +294,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	if (kTcpNetwork.startup(kParams))
 	{
+		std::cout << "tcp client startup" << std::endl;
 		/// Test 0
 		/// @{
 		//sendMsgOnceFunc();
@@ -323,6 +320,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		while (!kTcpNetwork.tryShutdown());
 	}
 
+	std::cout << "tcp client shutdown" << std::endl;
 	kConCallback.outputStats();
 
 	system("pause");

@@ -5,7 +5,7 @@
 namespace Runtime
 {
 	LogSystem::LogSystem()
-	: m_eLogLevel(L_DEBUG)
+		: m_eLogLevel(L_TRACE)
 	{
 
 	}
@@ -90,30 +90,26 @@ namespace Runtime
 		return true;
 	}
 
-	void LogSystem::WriteLog(LogLevel eLogLevel, char *pcLogInfo)
+    void LogSystem::WriteLog(LogLevel eLogLevel, std::string msg)
 	{
 		for (unsigned int ui = 0; ui < m_kLogTargets.size(); ++ui)
 		{
 			if (m_kLogTargets[ui])
 			{
-				m_kLogTargets[ui]->WriteLog(eLogLevel, pcLogInfo);
+                m_kLogTargets[ui]->WriteLog(eLogLevel, msg);
 			}
 		}
 	}
-
-	void LogSystem::WriteLog(LogLevel typ, const char* format, ...)
-	{
-		va_list args;
-		va_start(args, format);
-		char buffer[UTILITY_MAX_PATH];
-#ifdef WIN32
-			vsprintf_s(buffer, UTILITY_MAX_PATH, format, args);
-#else
-			vsnprintf(buffer, UTILITY_MAX_PATH, format, args);
-#endif // WIN32
-		WriteLog(typ, buffer );
-	}
-
+    void LogSystem::WriteLog(LogLevel eLogLevel, std::wstring msg)
+    {
+        for (unsigned int ui = 0; ui < m_kLogTargets.size(); ++ui)
+        {
+            if (m_kLogTargets[ui])
+            {
+                m_kLogTargets[ui]->WriteLog(eLogLevel, msg);
+            }
+        }
+    }
 	void LogSystem::SetLogLevel(LogLevel eLogLevel)
 	{
 		m_eLogLevel = eLogLevel;

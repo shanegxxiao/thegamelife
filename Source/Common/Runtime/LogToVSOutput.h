@@ -9,7 +9,8 @@ namespace Runtime
 	class LogToVSOutput : public LogTarget
 	{
 	public:
-		virtual void WriteLog(LogLevel eLogLevel, char *pcLogInfo);
+		virtual void WriteLog(LogLevel eLogLevel, std::string msg);
+        virtual void WriteLog(LogLevel eLogLevel, std::wstring msg);
 	};
 }
 

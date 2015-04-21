@@ -1,5 +1,6 @@
 #include "RuntimePCH.h"
 #include "ConsoleSystem.h"
+#include "Utility/Encode.h"
 
 #ifdef WIN32
 
@@ -11,12 +12,12 @@ namespace Runtime
 {
 	ConsoleCtrlHandle ConsoleSystem::m_pfnCtrlHandle;
 
-	ConsoleSystem::ConsoleSystem(const TCHAR *pcCaptionName, ConsoleCallback pfnInputCallback,
+	ConsoleSystem::ConsoleSystem(const TCHAR *pcCaptionName, ConsoleInputHandler pfnInputCallback,
 		ConsoleCtrlHandle pfnCtrlHandle, HWND hWnd/* = 0*/, int ix/* = 0*/, int iy/* = 0*/, 
 		int iRowCnt/* = 100*/, int iColCnt/* = 80*/)
 	{
 		m_hWnd = hWnd;
-		m_eLogLevel = L_INFO;
+		m_eLogLevel = L_TRACE;
 		m_iWndX = ix;
 		m_iWndY = iy;
 		m_iWndRowCnt = iRowCnt;
@@ -31,11 +32,14 @@ namespace Runtime
 
 	}
 
-	void ConsoleSystem::WriteLog(LogLevel eLogLevel, char *pcLogInfo)
+	void ConsoleSystem::WriteLog(LogLevel eLogLevel, std::string msg)
 	{
-		USES_CONVERSION;
-		Print(eLogLevel, A2T(pcLogInfo));
+        Print(eLogLevel, Utility::a2w(msg).c_str());
 	}
+    void ConsoleSystem::WriteLog(LogLevel eLogLevel, std::wstring msg)
+    {
+        Print(eLogLevel, msg.c_str());
+    }
 		
 	bool ConsoleSystem::Initialize()
 	{
@@ -160,32 +164,33 @@ namespace Runtime
 			}
 			else
 			{
-	#ifdef UNICODE
-				TCHAR cInput = kInputRec.Event.KeyEvent.uChar.UnicodeChar;
-	#else
-				TCHAR cInput = kInputRec.Event.KeyEvent.uChar.AsciiChar;
-	#endif
+#ifdef UNICODE
+                TCHAR cInput = kInputRec.Event.KeyEvent.uChar.UnicodeChar;
+#else
+                TCHAR cInput = kInputRec.Event.KeyEvent.uChar.AsciiChar;
+#endif
 				InputChar(cInput);
 				m_strCommand += cInput;
 			}
 		}
 	}
 		
-	void ConsoleSystem::InputChar(TCHAR cInput)
-	{
-		DWORD dwCharCnt;
-	#ifdef UNICODE
-		if (cInput > 0x80)
-		{
-			FillConsoleOutputCharacter(m_hOutput, cInput, 2, m_kInputCursorPos, &dwCharCnt);
-			m_kInputCursorPos.X += 2;
-	#else
-		if (cInput & 0x80)
-		{
-			FillConsoleOutputCharacter(m_hOutput, cInput, 2, m_kInputCursorPos, &dwCharCnt);
-			m_kInputCursorPos.X += 1;
-	#endif
-		}
+    void ConsoleSystem::InputChar(TCHAR cInput)
+    {
+        DWORD dwCharCnt;
+#ifdef UNICODE
+        if (cInput > 0x80)
+        {
+            FillConsoleOutputCharacter(m_hOutput, cInput, 2, m_kInputCursorPos, &dwCharCnt);
+            m_kInputCursorPos.X += 2;
+        }
+#else
+        if (cInput & 0x80)
+        {
+            FillConsoleOutputCharacter(m_hOutput, cInput, 2, m_kInputCursorPos, &dwCharCnt);
+            m_kInputCursorPos.X += 1;
+        }
+#endif
 		else
 		{
 			FillConsoleOutputCharacter(m_hOutput, cInput, 1, m_kInputCursorPos, &dwCharCnt);
@@ -210,17 +215,18 @@ namespace Runtime
 			return;
 		}
 	#ifdef UNICODE
-		if ((m_strCommand.at(m_strCommand.length() - 1)) > 0x80)
-		{
-			m_kInputCursorPos.X -= 2;
-			FillConsoleOutputCharacter(m_hOutput, _T(' '), 2, m_kInputCursorPos, &dwCharCnt);
+        if ((m_strCommand.at(m_strCommand.length() - 1)) > 0x80)
+        {
+            m_kInputCursorPos.X -= 2;
+            FillConsoleOutputCharacter(m_hOutput, _T(' '), 2, m_kInputCursorPos, &dwCharCnt);
+        }
 	#else
 		if ((m_strCommand.at(m_strCommand.length() - 1)) & 0x80)
 		{
 			m_kInputCursorPos.X -= 2;
 			FillConsoleOutputCharacter(m_hOutput, _T(' '), 2, m_kInputCursorPos, &dwCharCnt);
+        }
 	#endif
-		}
 		else
 		{
 			m_kInputCursorPos.X -= 1;
@@ -374,10 +380,10 @@ namespace Runtime
 		GetLocalTime(&kSystemTime);
 		TCHAR acOutput[MAX_OUTPUT_LENGTH];
 		memset(acOutput, 0, MAX_OUTPUT_LENGTH);
-		Printf(acOutput, _T("%02d:%02d:%02d:%03d >%s"), kSystemTime.wHour,
+		Printf(acOutput, _T("%02d:%02d:%02d:%03d > %s"), kSystemTime.wHour,
 			kSystemTime.wMinute, kSystemTime.wSecond, kSystemTime.wMilliseconds, acBuffer);
 
-		unsigned int uiOutputCharCnt = _tcslen(acOutput);
+		unsigned int uiOutputCharCnt = (unsigned int)_tcslen(acOutput);
 
 		EnterCriticalSection(&m_kOutputRectCS);
 
@@ -407,20 +413,22 @@ namespace Runtime
 					++m_iOutputCursorRowIdx;
 				}
 			}
-	#ifdef UNICODE
-			if (acOutput[ui] > 0x80)
-			{
-				FillConsoleOutputAttribute(m_hOutput, uiColor, 2, kCharPos, &dwNumCharWrote);
-				FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 2, kCharPos, &dwNumCharWrote);
-				kCharPos.X += 2;
-	#else
-			if (acOutput[ui] & 0x80)
-			{
-				FillConsoleOutputAttribute(m_hOutput, uiColor, 2, kCharPos, &dwNumCharWrote);
-				FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 2, kCharPos, &dwNumCharWrote);
-				++kCharPos.X;
-	#endif //UNICODE
-			}
+#ifdef UNICODE
+            if (acOutput[ui] > 0x80)
+            {
+                FillConsoleOutputAttribute(m_hOutput, uiColor, 2, kCharPos, &dwNumCharWrote);
+                FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 2, kCharPos, &dwNumCharWrote);
+                kCharPos.X += 2;
+            }
+#else
+            if (acOutput[ui] & 0x80)
+            {
+                FillConsoleOutputAttribute(m_hOutput, uiColor, 2, kCharPos, &dwNumCharWrote);
+                FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 2, kCharPos, &dwNumCharWrote);
+                ++kCharPos.X;
+            }
+#endif //UNICODE
+			
 			else
 			{
 				FillConsoleOutputAttribute(m_hOutput, uiColor, 1, kCharPos, &dwNumCharWrote);
@@ -432,48 +440,48 @@ namespace Runtime
 		LeaveCriticalSection(&m_kOutputRectCS);
 	}
 		
-	void ConsoleSystem::ScrollConsoleOutputRect()
-	{
-		SMALL_RECT kScrollRect, kClipRect;
-		COORD kDestPos = {0, -1};
-		CHAR_INFO kCharFill;
-		CONSOLE_SCREEN_BUFFER_INFO bInfo;
-		GetConsoleScreenBufferInfo(m_hOutput, &bInfo);
-		kScrollRect.Left = 0;
-		kScrollRect.Top = 0;
-		kScrollRect.Right = bInfo.dwSize.X - 1;
-		kScrollRect.Bottom = bInfo.dwSize.Y - 4;
-		kClipRect = kScrollRect;
-		kCharFill.Attributes = bInfo.wAttributes;
-		kCharFill.Char.UnicodeChar = _T(' ');
-		if (!ScrollConsoleScreenBuffer(m_hOutput, &kScrollRect, &kClipRect, kDestPos, &kCharFill))
-		{
-			OutputDebugString(_T("ScrollConsoleOutputRect ScrollConsoleScreenBuffer ERROR."));
-		}
-	}
-		
-	void ConsoleSystem::ClearScreen()
-	{
-		EnterCriticalSection(&m_kOutputRectCS);
-		CONSOLE_SCREEN_BUFFER_INFO kSBInfo;
-		GetConsoleScreenBufferInfo(m_hOutput, &kSBInfo);
-		COORD kHome = {0, 0};
-		DWORD dwNumCharWrote;
-		unsigned long ulSize = kSBInfo.dwSize.X * (kSBInfo.dwSize.Y - 3);
-		FillConsoleOutputAttribute(m_hOutput, kSBInfo.wAttributes, ulSize, kHome, &dwNumCharWrote);
-		FillConsoleOutputCharacter(m_hOutput, _T(' '), ulSize, kHome, &dwNumCharWrote);
-		InitOutputRect();
-		LeaveCriticalSection(&m_kOutputRectCS);
-	}
+    void ConsoleSystem::ScrollConsoleOutputRect()
+    {
+        SMALL_RECT kScrollRect, kClipRect;
+        COORD kDestPos = { 0, -1 };
+        CHAR_INFO kCharFill;
+        CONSOLE_SCREEN_BUFFER_INFO bInfo;
+        GetConsoleScreenBufferInfo(m_hOutput, &bInfo);
+        kScrollRect.Left = 0;
+        kScrollRect.Top = 0;
+        kScrollRect.Right = bInfo.dwSize.X - 1;
+        kScrollRect.Bottom = bInfo.dwSize.Y - 4;
+        kClipRect = kScrollRect;
+        kCharFill.Attributes = bInfo.wAttributes;
+        kCharFill.Char.UnicodeChar = _T(' ');
+        if (!ScrollConsoleScreenBuffer(m_hOutput, &kScrollRect, &kClipRect, kDestPos, &kCharFill))
+        {
+            OutputDebugString(_T("ScrollConsoleOutputRect ScrollConsoleScreenBuffer ERROR."));
+        }
+    }
 
-	BOOL WINAPI ConsoleSystem::ConsoleHandler(DWORD dwEvent)
-	{
-		if (m_pfnCtrlHandle && m_pfnCtrlHandle(dwEvent))
-		{
-			return TRUE;
-		}
-		return FALSE;
-	}
+    void ConsoleSystem::ClearScreen()
+    {
+        EnterCriticalSection(&m_kOutputRectCS);
+        CONSOLE_SCREEN_BUFFER_INFO kSBInfo;
+        GetConsoleScreenBufferInfo(m_hOutput, &kSBInfo);
+        COORD kHome = { 0, 0 };
+        DWORD dwNumCharWrote;
+        unsigned long ulSize = kSBInfo.dwSize.X * (kSBInfo.dwSize.Y - 3);
+        FillConsoleOutputAttribute(m_hOutput, kSBInfo.wAttributes, ulSize, kHome, &dwNumCharWrote);
+        FillConsoleOutputCharacter(m_hOutput, _T(' '), ulSize, kHome, &dwNumCharWrote);
+        InitOutputRect();
+        LeaveCriticalSection(&m_kOutputRectCS);
+    }
+
+    BOOL WINAPI ConsoleSystem::ConsoleHandler(DWORD dwEvent)
+    {
+        if (m_pfnCtrlHandle && m_pfnCtrlHandle(dwEvent))
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
 }
 
 #endif // WIN32
