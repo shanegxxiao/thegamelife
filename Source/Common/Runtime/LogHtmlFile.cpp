@@ -100,39 +100,6 @@ namespace Runtime
     {
         WriteLog(eLogLevel, Utility::w2a(msg));
     }
-
-	void LogHtmlFile::WriteLog(LogLevel typ, const char* format, ...)
-	{
-		if (m_bIsOpen && typ >= m_eLogLevel)	
-		{
-			va_list args;
-			va_start(args, format);
-			char buffer[UTILITY_MAX_PATH];
-#ifdef WIN32
-			vsprintf_s(buffer, UTILITY_MAX_PATH, format, args);
-#else
-			vsnprintf(buffer, UTILITY_MAX_PATH, format, args);
-#endif // WIN32
-			WriteLog(typ, buffer);
-		}
-	}
-
-	void LogHtmlFile::WriteLogEx(LogLevel typ, LogStyle *style, const char* format, ... )
-	{
-		if (m_bIsOpen && typ >= m_eLogLevel)	
-		{
-			va_list args;
-			va_start(args, format);
-			char buffer[UTILITY_MAX_PATH];
-#ifdef WIN32
-			vsprintf_s(buffer, UTILITY_MAX_PATH, format, args);
-#else
-			vsnprintf(buffer, UTILITY_MAX_PATH, format, args);
-#endif // WIN32
-			WriteLogEx(typ, style, buffer);
-		}
-	}
-
 	void LogHtmlFile::WriteLogEx(LogLevel typ, LogStyle *style, char* msg )
 	{
 		if (m_bIsOpen && typ >= m_eLogLevel)

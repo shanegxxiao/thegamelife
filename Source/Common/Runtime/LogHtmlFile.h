@@ -36,9 +36,7 @@ namespace Runtime
 		void Open(const char* file, const char* colorbg="#eeeeee");
 		void Append(const char* file);
 
-		void WriteLog(LogLevel typ, const char* format, ...);
 		void WriteLogEx(LogLevel typ, LogStyle *style, char* msg);
-		void WriteLogEx(LogLevel typ, LogStyle *style, const char* format, ...);
 
 		void WriteLink(LogLevel typ, char* msg, char* file);
 		void WriteLinkEx(LogLevel typ, LogStyle *style, char* msg, char* file);

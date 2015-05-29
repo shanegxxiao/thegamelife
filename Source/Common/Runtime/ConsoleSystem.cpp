@@ -24,7 +24,7 @@ namespace Runtime
 		m_iWndColCnt = iColCnt;
 		m_pfnInputCallback = pfnInputCallback;
 		m_pfnCtrlHandle = pfnCtrlHandle;
-		Printf(m_acCaptionName, MAX_OUTPUT_LENGTH, _T("%s"), pcCaptionName);
+		m_strCaptionName = pcCaptionName;
 	}
 		
 	ConsoleSystem::~ConsoleSystem()
@@ -34,11 +34,19 @@ namespace Runtime
 
 	void ConsoleSystem::WriteLog(LogLevel eLogLevel, std::string msg)
 	{
-        Print(eLogLevel, Utility::a2w(msg).c_str());
+		if (eLogLevel < m_eLogLevel)
+		{
+			return;
+		}
+		PrintString(gs_uiLogColor[eLogLevel], Utility::a2w(msg).c_str());
 	}
     void ConsoleSystem::WriteLog(LogLevel eLogLevel, std::wstring msg)
     {
-        Print(eLogLevel, msg.c_str());
+		if (eLogLevel < m_eLogLevel)
+		{
+			return;
+		}
+		PrintString(gs_uiLogColor[eLogLevel], msg.c_str());
     }
 		
 	bool ConsoleSystem::Initialize()
@@ -58,7 +66,7 @@ namespace Runtime
 		m_hInput = GetStdHandle(STD_INPUT_HANDLE);
 
 		// Change the window caption:
-		if (!SetConsoleTitle(m_acCaptionName))
+		if (!SetConsoleTitle(m_strCaptionName.c_str()))
 		{
 			OutputDebugString(_T("SetConsoleTitle ERROR.\n"));
 		}
@@ -357,33 +365,14 @@ namespace Runtime
 		SetConsoleCursorPosition(m_hOutput, kCursorPos);
 	}
 		
-	bool ConsoleSystem::Print(LogLevel eLogLevel, const TCHAR *pcFormat, ...)
-	{
-		if (eLogLevel < m_eLogLevel)
-		{
-			return false;
-		}
-		va_list args;
-		va_start(args, pcFormat);
-		TCHAR acBuffer[MAX_OUTPUT_LENGTH];
-		VsPrintf(acBuffer, MAX_OUTPUT_LENGTH, pcFormat, args);
-		va_end(args);
-
-		PrintString(gs_uiLogColor[eLogLevel], acBuffer);
-
-		return true;
-	}
-		
-	void ConsoleSystem::PrintString(UINT uiColor, TCHAR *acBuffer)
+	void ConsoleSystem::PrintString(UINT uiColor, const TCHAR *acBuffer)
 	{
 		SYSTEMTIME kSystemTime;
 		GetLocalTime(&kSystemTime);
-		TCHAR acOutput[MAX_OUTPUT_LENGTH];
-		memset(acOutput, 0, MAX_OUTPUT_LENGTH);
-		Printf(acOutput, _T("%02d:%02d:%02d:%03d > %s"), kSystemTime.wHour,
+		stdstring strOutput = Utility::format(_T("%02d:%02d:%02d:%03d > %s"), kSystemTime.wHour,
 			kSystemTime.wMinute, kSystemTime.wSecond, kSystemTime.wMilliseconds, acBuffer);
 
-		unsigned int uiOutputCharCnt = (unsigned int)_tcslen(acOutput);
+		unsigned int uiOutputCharCnt = strOutput.length();
 
 		EnterCriticalSection(&m_kOutputRectCS);
 
@@ -414,17 +403,17 @@ namespace Runtime
 				}
 			}
 #ifdef UNICODE
-            if (acOutput[ui] > 0x80)
+			if (strOutput[ui] > 0x80)
             {
                 FillConsoleOutputAttribute(m_hOutput, uiColor, 2, kCharPos, &dwNumCharWrote);
-                FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 2, kCharPos, &dwNumCharWrote);
+				FillConsoleOutputCharacter(m_hOutput, strOutput[ui], 2, kCharPos, &dwNumCharWrote);
                 kCharPos.X += 2;
             }
 #else
-            if (acOutput[ui] & 0x80)
+			if (strOutput[ui] & 0x80)
             {
                 FillConsoleOutputAttribute(m_hOutput, uiColor, 2, kCharPos, &dwNumCharWrote);
-                FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 2, kCharPos, &dwNumCharWrote);
+				FillConsoleOutputCharacter(m_hOutput, strOutput[ui], 2, kCharPos, &dwNumCharWrote);
                 ++kCharPos.X;
             }
 #endif //UNICODE
@@ -432,7 +421,7 @@ namespace Runtime
 			else
 			{
 				FillConsoleOutputAttribute(m_hOutput, uiColor, 1, kCharPos, &dwNumCharWrote);
-				FillConsoleOutputCharacter(m_hOutput, acOutput[ui], 1, kCharPos, &dwNumCharWrote);
+				FillConsoleOutputCharacter(m_hOutput, strOutput[ui], 1, kCharPos, &dwNumCharWrote);
 				++kCharPos.X;
 			}
 		}
