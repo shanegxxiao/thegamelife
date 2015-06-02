@@ -71,6 +71,7 @@ namespace Database
         va_start(args, format);
         redisAsyncCommand(mpRedisAsyncContext, OnCommandReply, 
             privdata, format, args);
+		va_end(args);
     }
     bool RedisClient::Open(const std::string& strHost,
         unsigned int uiPort)

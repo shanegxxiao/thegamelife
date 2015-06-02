@@ -20,12 +20,8 @@ namespace Runtime
 
 #ifdef WIN32
 	#ifdef UNICODE
-	#define VsPrintf vswprintf_s
-	#define Printf swprintf_s
 		typedef std::wstring stdstring;
 	#else
-	#define VsPrintf vsprintf_s
-	#define Printf sprintf_s
 		typedef std::string stdstring;
 	#endif
 #endif // WIN32

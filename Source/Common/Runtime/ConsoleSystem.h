@@ -26,7 +26,6 @@ namespace Runtime
         virtual void WriteLog(LogLevel eLogLevel, std::string msg);
         virtual void WriteLog(LogLevel eLogLevel, std::wstring msg);
 
-		bool Print(LogLevel eLogLevel, const TCHAR *pcFormat, ...);
 		void ClearScreen();
 		void SubmitCmd(stdstring strCmd);
 		
@@ -39,7 +38,7 @@ namespace Runtime
 		void InputString(stdstring str);
 		void InputChar(TCHAR cInput);
 		void DeleteChar();
-		void PrintString(UINT uiColor, TCHAR *acBuffer);
+		void PrintString(UINT uiColor, const TCHAR *acBuffer);
 
 		void ThreadExecute();
 		static DWORD WINAPI ThreadFn(LPVOID pVoid);
@@ -53,7 +52,7 @@ namespace Runtime
 		int m_iWndY;
 		int m_iWndRowCnt;
 		int m_iWndColCnt;
-		TCHAR m_acCaptionName[MAX_OUTPUT_LENGTH];
+		stdstring m_strCaptionName;
 		int m_iOutputCursorRowIdx;
 
 		SMALL_RECT m_kOutputRect;
