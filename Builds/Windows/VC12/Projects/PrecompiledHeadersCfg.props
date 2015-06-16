@@ -12,7 +12,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>$(ProjectName)PCH.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
-      <AdditionalOptions>-Zm128 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm256 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />
