@@ -1,0 +1,16 @@
+{
+  "name": "tglconfig",
+  "version": "1.0.0",
+  "description": "configure project for thegamelife",
+  "main": "Config.js",
+  "dependencies": {
+    "iconv-lite": "^0.4.10",
+    "rimraf": "^2.3.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shanegxxiao",
+  "license": "ISC"
+}
